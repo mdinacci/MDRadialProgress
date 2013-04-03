@@ -42,11 +42,11 @@
     radialView2.progressCurrent = 3;
 	radialView2.completedColor = [UIColor blueColor];
 	radialView2.incompletedColor = [UIColor redColor];
-    radialView2.thickness = 20;
+    radialView2.thickness = 30;
     radialView2.backgroundColor = [UIColor whiteColor];
     radialView2.sliceDividerHidden = NO;
     radialView2.sliceDividerColor = [UIColor whiteColor];
-    radialView2.sliceDividerThickness = 2;
+    radialView2.sliceDividerThickness = 1;
 
 	[self.view addSubview:radialView2];
 	
@@ -65,16 +65,18 @@
 	[self.view addSubview:radialView3];
 	
 	
-	frame = CGRectMake(180, 200, 50, 50);
+	frame = CGRectMake(180, 220, 70, 70);
     MDRadialProgressView *radialView4 = [[MDRadialProgressView alloc] initWithFrame:frame];
     
-    radialView4.progressTotal = 4;
+    radialView4.progressTotal = 5;
     radialView4.progressCurrent = 3;
-    radialView4.thickness = 10;
+    radialView4.thickness = 15;
+	radialView4.incompletedColor = [UIColor orangeColor];
+	radialView4.completedColor = [UIColor purpleColor];
     radialView4.backgroundColor = [UIColor yellowColor];
 	radialView4.sliceDividerColor = [UIColor yellowColor];
     radialView4.sliceDividerHidden = NO;
-	radialView4.sliceDividerThickness = 1;
+	radialView4.sliceDividerThickness = 5;
     
     [self.view addSubview:radialView4];
 	
