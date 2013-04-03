@@ -24,7 +24,6 @@
 
 - (void)awakeFromNib
 {
-    
     [self internalInit];
 }
 
@@ -45,27 +44,43 @@
             center:(CGPoint)center
          inContext:(CGContextRef)context
 {
+	if (!self.sliceDividerHidden) {
+		
+		// Draw one arc at a time.
+		
+		float sliceValue = 1.0f/slicesCount;
+		for (int i = 0; i < slicesCount; i++) {
+			CGFloat startValue = sliceValue * i;
+			CGFloat startAngle = startValue * 2 * M_PI - M_PI_2;
+			CGFloat endValue = sliceValue * (i+1);
+			CGFloat endAngle = endValue * 2 * M_PI - M_PI_2;
+			
+			CGContextBeginPath(context);
+			CGContextMoveToPoint(context, center.x, center.y);
+			CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, 0);
 
-    int slicesCompletedMinusOne = slicesCompleted - 1;
-    float sliceValue = 1.0f/slicesCount;
-    for (int i = 0; i < slicesCount; i++) {
-        CGFloat startValue = sliceValue * i;
-        CGFloat startAngle = startValue * 2 * M_PI - M_PI/2;
-        CGFloat endValue = sliceValue * (i+1);
-        CGFloat endAngle = endValue * 2 * M_PI - M_PI/2;
-        
-        CGColorRef color = self.incompletedColor.CGColor;
-        if (slicesCompletedMinusOne >= i) {
-            color = self.completedColor.CGColor;
-        } 
-        
-        CGContextSetFillColorWithColor(context, color);
-        CGContextBeginPath(context);
-        CGContextMoveToPoint(context, center.x, center.y);
-        CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, 0);
-        CGContextClosePath(context);
-        CGContextFillPath(context);
-    }
+			CGColorRef color = self.incompletedColor.CGColor;
+			if (slicesCompleted - 1 >= i) {
+				color = self.completedColor.CGColor;
+			}
+			CGContextSetFillColorWithColor(context, color);
+			CGContextFillPath(context);
+		}
+	} else {
+		
+		// Draw a single arc instead of multiple ones to avoid artifacts between
+		// one slice and another.
+		
+		CGContextBeginPath(context);
+		CGContextMoveToPoint(context, center.x, center.y);
+		CGFloat startAngle = - M_PI_2;
+		CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
+		CGFloat endAngle = sliceAngle * (self.progressCurrent -1);
+		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, 0);
+		CGColorRef color = self.completedColor.CGColor;
+		CGContextSetFillColorWithColor(context, color);
+		CGContextFillPath(context);
+	}
 }
 
 - (void)drawRect:(CGRect)rect
@@ -78,10 +93,11 @@
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
     CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     float radius = self.bounds.size.width/2;
-    [self drawSlices:self.progressTotal completed:self.progressCurrent radius:radius center:center inContext:contextRef];
-    
-    CGContextSetLineWidth(contextRef, 1);
-    CGContextSetRGBStrokeColor(contextRef, 1.0, 0.0, 0.0, 1.0);
+    [self drawSlices:self.progressTotal
+		   completed:self.progressCurrent
+			  radius:radius
+			  center:center
+		   inContext:contextRef];
     
     CGSize viewSize = self.bounds.size;
     
@@ -114,7 +130,8 @@
     
     // Draw circle
     CGContextSetLineWidth(contextRef, self.thickness);
-    CGContextSetRGBFillColor(contextRef, 1.0, 1.0, 1.0, 1.0);
+
+    CGContextSetFillColorWithColor(contextRef, self.backgroundColor.CGColor);
     CGRect circlePoint = CGRectMake(center.x - halfInnerRadius, center.y - halfInnerRadius,
                                     innerRadius, innerRadius);
     CGContextFillEllipseInRect(contextRef, circlePoint);
