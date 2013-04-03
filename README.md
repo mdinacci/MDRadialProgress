@@ -2,9 +2,33 @@
 
 A custom UIView useful to represent progress in discrete steps. 
 
+![Screenshot](screenshot.png "Screenshot")
+
 ## Documentation
 
-Coming soon. Really.
+How to use:
+
+```
+CGRect frame = CGRectMake(30, 30, 50, 50);
+MDRadialProgressView *radialView = [[MDRadialProgressView alloc] initWithFrame:frame];
+
+// Total number of steps    
+radialView.progressTotal = 5;
+// Number of steps completed
+radialView.progressCurrent = 2;
+
+// Customisation (see red and blue example in the screenshot above)
+radialView.completedColor = [UIColor blueColor];
+radialView.incompletedColor = [UIColor redColor];
+radialView.thickness = 30;
+// Be sure to use the same color for background and sliceDivider to simulate
+// the space between one step and another.
+radialView.backgroundColor = [UIColor whiteColor];
+radialView.sliceDividerColor = [UIColor whiteColor];
+// The first and third example uses sliceDividerHidden = YES
+radialView.sliceDividerHidden = NO;
+radialView.sliceDividerThickness = 1;
+```
 
 ## License (MIT)
 Copyright (c) 2013 Marco Dinacci

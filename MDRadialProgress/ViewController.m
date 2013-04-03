@@ -34,7 +34,6 @@
     
     [self.view addSubview:radialView];
 	
-	
 	frame = CGRectMake(180, 10, 100, 100);
     MDRadialProgressView *radialView2 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	

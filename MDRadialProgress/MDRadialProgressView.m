@@ -132,7 +132,10 @@
 			CGContextBeginPath(contextRef);
 			CGContextMoveToPoint(contextRef, center.x, center.y);
 			
+			// Draw the outer arc
 			CGContextAddArc(contextRef, center.x, center.y, halfOuterRadius, startAngle, endAngle, 0);
+			// Draw the inner arc. The separator line is drawn automatically when moving from
+			// the point where the outer arc ended to the point where the inner arc starts.
 			CGContextAddArc(contextRef, center.x, center.y, halfInnerRadius, endAngle, startAngle, 1);
 			
 			CGContextSetStrokeColorWithColor(contextRef, self.sliceDividerColor.CGColor);
