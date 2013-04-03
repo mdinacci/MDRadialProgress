@@ -18,6 +18,7 @@
 		A9A38A5F1700C5CB00684698 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A38A5E1700C5CB00684698 /* Default-568h@2x.png */; };
 		A9A38A621700C5CB00684698 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A38A611700C5CB00684698 /* ViewController.m */; };
 		A9A38A651700C5CB00684698 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9A38A631700C5CB00684698 /* ViewController.xib */; };
+		A9A38A6D1700C64E00684698 /* MDRadialProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		A9A38A601700C5CB00684698 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A9A38A611700C5CB00684698 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A9A38A641700C5CB00684698 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		A9A38A6B1700C64E00684698 /* MDRadialProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressView.h; sourceTree = "<group>"; };
+		A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				A9A38A581700C5CA00684698 /* AppDelegate.m */,
 				A9A38A601700C5CB00684698 /* ViewController.h */,
 				A9A38A611700C5CB00684698 /* ViewController.m */,
+				A9A38A6B1700C64E00684698 /* MDRadialProgressView.h */,
+				A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */,
 				A9A38A631700C5CB00684698 /* ViewController.xib */,
 				A9A38A4F1700C5CA00684698 /* Supporting Files */,
 			);
@@ -176,6 +181,7 @@
 				A9A38A551700C5CA00684698 /* main.m in Sources */,
 				A9A38A591700C5CA00684698 /* AppDelegate.m in Sources */,
 				A9A38A621700C5CB00684698 /* ViewController.m in Sources */,
+				A9A38A6D1700C64E00684698 /* MDRadialProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +304,7 @@
 				A9A38A6A1700C5CB00684698 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
