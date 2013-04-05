@@ -7,7 +7,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-
 #import "MDRadialProgressView.h"
 
 
@@ -101,24 +100,24 @@
     }
     
     // Draw the slices.
-	
+    
+	CGSize viewSize = self.bounds.size;
+    
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-    float radius = self.bounds.size.width/2;
+    CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
+    CGFloat radius = viewSize.width / 2;
     [self drawSlices:self.progressTotal
 		   completed:self.progressCurrent
 			  radius:radius
 			  center:center
 		   inContext:contextRef];
     
-    CGSize viewSize = self.bounds.size;
-    
 	// Draw the slice separators.
 	
-    int outerRadius = viewSize.width;
-    float halfOuterRadius = outerRadius / 2;
-    int innerRadius = outerRadius - self.thickness;
-    float halfInnerRadius = innerRadius / 2;
+    int outerDiameter = viewSize.width;
+    float outerRadius = outerDiameter / 2;
+    int innerDiameter = outerDiameter - self.thickness;
+    float innerRadius = innerDiameter / 2;
     
     if (! self.sliceDividerHidden) {
         int sliceCount = self.progressTotal;
@@ -133,10 +132,10 @@
 			CGContextMoveToPoint(contextRef, center.x, center.y);
 			
 			// Draw the outer arc
-			CGContextAddArc(contextRef, center.x, center.y, halfOuterRadius, startAngle, endAngle, 0);
+			CGContextAddArc(contextRef, center.x, center.y, outerRadius, startAngle, endAngle, 0);
 			// Draw the inner arc. The separator line is drawn automatically when moving from
 			// the point where the outer arc ended to the point where the inner arc starts.
-			CGContextAddArc(contextRef, center.x, center.y, halfInnerRadius, endAngle, startAngle, 1);
+			CGContextAddArc(contextRef, center.x, center.y, innerRadius, endAngle, startAngle, 1);
 			
 			CGContextSetStrokeColorWithColor(contextRef, self.sliceDividerColor.CGColor);
 			CGContextStrokePath(contextRef);
@@ -144,11 +143,12 @@
     }
     
     // Draw the inner circle to fake a hole in the middle.
+    
     CGContextSetLineWidth(contextRef, self.thickness);
 
     CGContextSetFillColorWithColor(contextRef, self.backgroundColor.CGColor);
-    CGRect circlePoint = CGRectMake(center.x - halfInnerRadius, center.y - halfInnerRadius,
-                                    innerRadius, innerRadius);
+    CGRect circlePoint = CGRectMake(center.x - innerRadius, center.y - innerRadius,
+                                    innerDiameter, innerDiameter);
     CGContextFillEllipseInRect(contextRef, circlePoint);
 }
 
