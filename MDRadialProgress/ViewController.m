@@ -10,13 +10,6 @@
 #import "MDRadialProgressView.h"
 
 
-@interface ViewController ()
-
-//@property (strong, nonatomic) MDRadialProgressView *radialView;
-
-@end
-
-
 @implementation ViewController
 
 - (void)viewDidLoad

@@ -6,7 +6,22 @@ A custom UIView useful to represent progress in discrete steps.
 
 ## Documentation
 
-How to use:
+### Installation
+
+Either use CocoaPods by adding the line below to your _Podfile_:
+
+```
+pod MDRadialProgress
+```
+
+or copy `MDRadialProgress.{h|m}` into your project.
+
+### Usage
+
+There is an example included in `ViewController.m`. Tweak it and run it to
+experiment. 
+
+Here's an explanation of the options available for customisation:
 
 ```
 CGRect frame = CGRectMake(30, 30, 50, 50);
