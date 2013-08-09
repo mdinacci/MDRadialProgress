@@ -43,7 +43,7 @@
             center:(CGPoint)center
          inContext:(CGContextRef)context
 {
-	if (!self.sliceDividerHidden) {
+	if (! self.sliceDividerHidden) {
 		
 		// Draw one arc at a time.
 		
@@ -75,7 +75,7 @@
 		CGContextMoveToPoint(context, center.x, center.y);
 		CGFloat startAngle = - M_PI_2;
 		CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
-		CGFloat endAngle = sliceAngle * (self.progressCurrent -1);
+		CGFloat endAngle = startAngle + (sliceAngle * (self.progressCurrent));
 		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, 0);
 		CGColorRef color = self.completedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
