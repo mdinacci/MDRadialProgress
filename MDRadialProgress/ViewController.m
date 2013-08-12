@@ -43,7 +43,7 @@
 	[self.view addSubview:radialView2];
 	
 	
-	frame = CGRectMake(30, 200, 120, 120);
+	frame = CGRectMake(30, 150, 120, 120);
     MDRadialProgressView *radialView3 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView3.progressTotal = 5;
@@ -57,7 +57,7 @@
 	[self.view addSubview:radialView3];
 	
 	
-	frame = CGRectMake(180, 220, 70, 70);
+	frame = CGRectMake(180, 150, 70, 70);
     MDRadialProgressView *radialView4 = [[MDRadialProgressView alloc] initWithFrame:frame];
     
     radialView4.progressTotal = 5;
@@ -73,6 +73,39 @@
     [self.view addSubview:radialView4];
 	
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    frame = CGRectMake(30, 300, 100, 100);
+    MDRadialProgressView *radialView5 = [[MDRadialProgressView alloc] initWithFrame:frame];
+	
+	radialView5.progressTotal = 10;
+    radialView5.progressCurrent = 3;
+    radialView5.thickness = 30;
+    radialView5.backgroundColor = [UIColor whiteColor];
+    radialView5.sliceDividerHidden = NO;
+    radialView5.sliceDividerColor = [UIColor whiteColor];
+    radialView5.sliceDividerThickness = 1;
+    radialView5.clockwise = 1;
+    
+	[self.view addSubview:radialView5];
+    
+    
+    
+    frame = CGRectMake(180, 300, 100, 100);
+    MDRadialProgressView *radialView6 = [[MDRadialProgressView alloc] initWithFrame:frame];
+	
+	radialView6.progressTotal = 10;
+    radialView6.progressCurrent = 3;
+    radialView6.thickness = 30;
+    radialView6.backgroundColor = [UIColor whiteColor];
+    radialView6.sliceDividerHidden = NO;
+    radialView6.sliceDividerColor = [UIColor whiteColor];
+    radialView6.sliceDividerThickness = 1;
+    radialView6.clockwise = 1;
+    radialView6.startSlice = 3;
+    
+	[self.view addSubview:radialView6];
+
 }
 
 - (void)didReceiveMemoryWarning
