@@ -36,7 +36,7 @@
     self.sliceDividerHidden = NO;
     self.sliceDividerThickness = 2;
     
-    self.clockwise = 1;
+    self.clockwise = YES;
 }
 
 - (void)drawSlices:(NSUInteger)slicesCount
@@ -45,7 +45,7 @@
             center:(CGPoint)center
          inContext:(CGContextRef)context
 {
-    NSUInteger iOSClockwise = abs(self.clockwise-1);
+    BOOL iOSClockwise = !self.clockwise;
     
 	if (!self.sliceDividerHidden)
     {

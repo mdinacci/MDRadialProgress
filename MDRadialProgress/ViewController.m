@@ -83,7 +83,7 @@
     radialView5.sliceDividerHidden = NO;
     radialView5.sliceDividerColor = [UIColor whiteColor];
     radialView5.sliceDividerThickness = 1;
-    radialView5.clockwise = 0;
+    radialView5.clockwise = NO;
     
 	[self.view addSubview:radialView5];
     

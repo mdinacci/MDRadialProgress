@@ -22,6 +22,6 @@
 @property (assign, nonatomic) BOOL sliceDividerHidden;
 @property (assign, nonatomic) NSUInteger sliceDividerThickness;
 
-@property (assign, nonatomic) NSUInteger clockwise;
+@property (assign, nonatomic) BOOL clockwise;
 
 @end
