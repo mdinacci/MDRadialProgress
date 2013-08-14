@@ -45,15 +45,13 @@
             center:(CGPoint)center
          inContext:(CGContextRef)context
 {
-    BOOL iOSClockwise = !self.clockwise;
+    BOOL cgClockwise = !self.clockwise;
     
-	if (!self.sliceDividerHidden)
-    {
+	if (!self.sliceDividerHidden) {
 		// Draw one arc at a time.
         
         float sliceAngle = 2*M_PI/slicesCount;
         for (int i =0; i < slicesCount; i++) {
-            
             CGFloat startValue = sliceAngle * i;
             CGFloat startAngle;
             if (self.clockwise) {
@@ -61,7 +59,6 @@
             } else {
                 startAngle =  -M_PI_2 - startValue;
             }
-            
             
             CGFloat endAngle;
             if (self.clockwise) {
@@ -72,7 +69,7 @@
             
             CGContextBeginPath(context);
             CGContextMoveToPoint(context, center.x, center.y);
-            CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle,iOSClockwise);
+            CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle,cgClockwise);
             
             CGColorRef color = self.incompletedColor.CGColor;
             
@@ -81,14 +78,9 @@
             }
             CGContextSetFillColorWithColor(context, color);
             CGContextFillPath(context);
-            
         }
-    }
-    else
-    {
-        
+    } else {
         CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
-        
         CGFloat originAngle = -M_PI_2;
         
 		// Draw the arcs grouped instead of individually to avoid
@@ -97,7 +89,6 @@
 		CGContextBeginPath(context);
 		CGContextMoveToPoint(context, center.x, center.y);
         
-        
         CGFloat endAngle;
         if (self.clockwise) {
             endAngle = originAngle + sliceAngle * self.progressCurrent;
@@ -105,7 +96,7 @@
             endAngle = originAngle - sliceAngle * self.progressCurrent;
         }
         
-		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, iOSClockwise);
+		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
 		CGColorRef color = self.completedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
@@ -115,7 +106,7 @@
 		CGContextMoveToPoint(context, center.x, center.y);
 		CGFloat startAngle = endAngle;
         endAngle = originAngle;
-		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, iOSClockwise);
+		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
 		color = self.incompletedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
