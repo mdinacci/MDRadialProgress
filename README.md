@@ -43,7 +43,13 @@ radialView.sliceDividerColor = [UIColor whiteColor];
 // The first and third example uses sliceDividerHidden = YES
 radialView.sliceDividerHidden = NO;
 radialView.sliceDividerThickness = 1;
+
+// Draw the progress counterclockwise
+radialView.clockwise = NO;
 ```
+
+## Contributors
+[Marc Audefroy](https://github.com/MarcAudefroy) for the clockwise/counterclockwise property.
 
 ## License (MIT)
 Copyright (c) 2013 Marco Dinacci
