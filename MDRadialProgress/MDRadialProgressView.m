@@ -35,7 +35,7 @@
     self.thickness = 40;
     self.sliceDividerHidden = NO;
     self.sliceDividerThickness = 2;
-    
+    self.startingSlice = 1;
     self.clockwise = YES;
 }
 
@@ -46,13 +46,14 @@
          inContext:(CGContextRef)context
 {
     BOOL cgClockwise = !self.clockwise;
+    NSUInteger startingSlice = self.startingSlice - 1;
     
 	if (!self.sliceDividerHidden) {
 		// Draw one arc at a time.
         
         float sliceAngle = 2*M_PI/slicesCount;
         for (int i =0; i < slicesCount; i++) {
-            CGFloat startValue = sliceAngle * i;
+            CGFloat startValue = (sliceAngle * i) + sliceAngle*startingSlice;
             CGFloat startAngle;
             if (self.clockwise) {
                 startAngle =  -M_PI_2 + startValue;
