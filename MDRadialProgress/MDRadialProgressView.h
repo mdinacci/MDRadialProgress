@@ -11,7 +11,7 @@
 @interface MDRadialProgressView : UIView
 
 @property (assign, nonatomic) NSUInteger progressTotal;
-@property (assign, nonatomic) NSUInteger progressCurrent;
+@property (assign, nonatomic) NSUInteger progressCounter;
 
 @property (strong, nonatomic) UIColor *completedColor;
 @property (strong, nonatomic) UIColor *incompletedColor;

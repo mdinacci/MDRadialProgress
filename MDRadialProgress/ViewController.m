@@ -20,7 +20,7 @@
     MDRadialProgressView *radialView = [[MDRadialProgressView alloc] initWithFrame:frame];
     
     radialView.progressTotal = 4;
-    radialView.progressCurrent = 2;
+    radialView.progressCounter = 2;
     radialView.thickness = 10;
     radialView.backgroundColor = [UIColor whiteColor];
     radialView.sliceDividerHidden = YES;
@@ -31,7 +31,7 @@
     MDRadialProgressView *radialView2 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView2.progressTotal = 10;
-    radialView2.progressCurrent = 3;
+    radialView2.progressCounter = 3;
 	radialView2.completedColor = [UIColor blueColor];
 	radialView2.incompletedColor = [UIColor redColor];
     radialView2.thickness = 30;
@@ -47,7 +47,7 @@
     MDRadialProgressView *radialView3 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView3.progressTotal = 5;
-    radialView3.progressCurrent = 4;
+    radialView3.progressCounter = 4;
 	radialView3.completedColor = [UIColor whiteColor];
 	radialView3.incompletedColor = [UIColor blackColor];
     radialView3.thickness = 10;
@@ -61,7 +61,7 @@
     MDRadialProgressView *radialView4 = [[MDRadialProgressView alloc] initWithFrame:frame];
     
     radialView4.progressTotal = 5;
-    radialView4.progressCurrent = 3;
+    radialView4.progressCounter = 3;
     radialView4.thickness = 15;
 	radialView4.incompletedColor = [UIColor orangeColor];
 	radialView4.completedColor = [UIColor purpleColor];
@@ -77,7 +77,7 @@
     MDRadialProgressView *radialView5 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView5.progressTotal = 10;
-    radialView5.progressCurrent = 3;
+    radialView5.progressCounter = 3;
     radialView5.thickness = 30;
     radialView5.backgroundColor = [UIColor whiteColor];
     radialView5.sliceDividerHidden = NO;
@@ -93,7 +93,7 @@
     MDRadialProgressView *radialView6 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView6.progressTotal = 10;
-    radialView6.progressCurrent = 3;
+    radialView6.progressCounter = 3;
     radialView6.thickness = 30;
     radialView6.backgroundColor = [UIColor whiteColor];
     radialView6.sliceDividerHidden = NO;

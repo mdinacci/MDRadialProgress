@@ -92,9 +92,9 @@
         
         CGFloat endAngle;
         if (self.clockwise) {
-            endAngle = originAngle + sliceAngle * self.progressCurrent;
+            endAngle = originAngle + sliceAngle * self.progressCounter;
         } else {
-            endAngle = originAngle - sliceAngle * self.progressCurrent;
+            endAngle = originAngle - sliceAngle * self.progressCounter;
         }
         
 		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
@@ -128,7 +128,7 @@
     CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
     CGFloat radius = viewSize.width / 2;
     [self drawSlices:self.progressTotal
-		   completed:self.progressCurrent
+		   completed:self.progressCounter
 			  radius:radius
 			  center:center
 		   inContext:contextRef];

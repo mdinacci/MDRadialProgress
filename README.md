@@ -28,28 +28,34 @@ CGRect frame = CGRectMake(30, 30, 50, 50);
 MDRadialProgressView *radialView = [[MDRadialProgressView alloc] initWithFrame:frame];
 
 // Total number of steps    
-radialView.progressTotal = 5;
+radialView.progressTotal = 10;
 // Number of steps completed
-radialView.progressCurrent = 2;
+radialView.progressCounter = 2;
 
-// Customisation (see red and blue example in the screenshot above)
+// Customisations (all optional)
 radialView.completedColor = [UIColor blueColor];
 radialView.incompletedColor = [UIColor redColor];
 radialView.thickness = 30;
+
 // Be sure to use the same color for background and sliceDivider to simulate
 // the space between one step and another.
 radialView.backgroundColor = [UIColor whiteColor];
 radialView.sliceDividerColor = [UIColor whiteColor];
-// The first and third example uses sliceDividerHidden = YES
+
+// if sliceDividerHidden is set to YES there won't be any separation between
+// each progress step (see first and third example in the picture).
 radialView.sliceDividerHidden = NO;
 radialView.sliceDividerThickness = 1;
 
-// Draw the progress counterclockwise
+// Draw the progress counterclockwise if you want
 radialView.clockwise = NO;
+
+// Start from the fifth slice (counting starts from 1)
+radialView.startSlice = 5
 ```
 
 ## Contributors
-[Marc Audefroy](https://github.com/MarcAudefroy) for the clockwise/counterclockwise property.
+[Marc Audefroy](https://github.com/MarcAudefroy) for the clockwise/counterclockwise and startSlice features.
 
 ## License (MIT)
 Copyright (c) 2013 Marco Dinacci
@@ -61,7 +67,7 @@ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
 of the Software, and to permit persons to whom the Software is furnished to do
 so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
+The above copyright notice and this permission notice shall be included in all 
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
