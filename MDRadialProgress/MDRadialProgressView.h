@@ -23,5 +23,6 @@
 @property (assign, nonatomic) NSUInteger sliceDividerThickness;
 
 @property (assign, nonatomic) BOOL clockwise;
+@property (assign, nonatomic) NSUInteger startingSlice;
 
 @end
