@@ -53,7 +53,7 @@
         
         float sliceAngle = 2*M_PI/slicesCount;
         for (int i =0; i < slicesCount; i++) {
-            CGFloat startValue = (sliceAngle * i) + sliceAngle*startingSlice;
+            CGFloat startValue = (sliceAngle * i) + sliceAngle * startingSlice;
             CGFloat startAngle;
             if (self.clockwise) {
                 startAngle =  -M_PI_2 + startValue;
@@ -70,7 +70,7 @@
             
             CGContextBeginPath(context);
             CGContextMoveToPoint(context, center.x, center.y);
-            CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle,cgClockwise);
+            CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, cgClockwise);
             
             CGColorRef color = self.incompletedColor.CGColor;
             
@@ -82,7 +82,7 @@
         }
     } else {
         CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
-        CGFloat originAngle = -M_PI_2;
+        CGFloat originAngle = -M_PI_2 + sliceAngle * startingSlice;
         
 		// Draw the arcs grouped instead of individually to avoid
 		// artifacts between one slice and another.
