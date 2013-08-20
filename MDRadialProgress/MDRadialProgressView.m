@@ -74,7 +74,8 @@
             
             CGColorRef color = self.incompletedColor.CGColor;
             
-            if (i <= (slicesCompleted - 1)) {
+            
+            if (i < slicesCompleted) {
                 color = self.completedColor.CGColor;
             }
             CGContextSetFillColorWithColor(context, color);
@@ -82,7 +83,14 @@
         }
     } else {
         CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
-        CGFloat originAngle = -M_PI_2 + sliceAngle * startingSlice;
+        
+        CGFloat originAngle;
+        if(self.clockwise){
+            originAngle = -M_PI_2 + sliceAngle * startingSlice;
+        }else{
+            originAngle = -M_PI_2 - sliceAngle * startingSlice;
+        }
+        
         
 		// Draw the arcs grouped instead of individually to avoid
 		// artifacts between one slice and another.
@@ -91,11 +99,16 @@
 		CGContextMoveToPoint(context, center.x, center.y);
         
         CGFloat endAngle;
-        if (self.clockwise) {
-            endAngle = originAngle + sliceAngle * self.progressCounter;
-        } else {
-            endAngle = originAngle - sliceAngle * self.progressCounter;
+        if(self.progressCounter == 0){
+            endAngle = originAngle + 2*M_PI;
+        }else{
+            if(self.clockwise){
+                endAngle = originAngle + sliceAngle * self.progressCounter;
+            }else{
+                endAngle = originAngle - sliceAngle * self.progressCounter;
+            }
         }
+        
         
 		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
 		CGColorRef color = self.completedColor.CGColor;
