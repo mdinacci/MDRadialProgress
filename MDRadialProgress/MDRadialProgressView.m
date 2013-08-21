@@ -99,16 +99,12 @@
 		CGContextMoveToPoint(context, center.x, center.y);
         
         CGFloat endAngle;
-        if(self.progressCounter == 0){
-            endAngle = originAngle + 2*M_PI;
+    
+        if(self.clockwise){
+            endAngle = originAngle + sliceAngle * self.progressCounter;
         }else{
-            if(self.clockwise){
-                endAngle = originAngle + sliceAngle * self.progressCounter;
-            }else{
-                endAngle = originAngle - sliceAngle * self.progressCounter;
-            }
+            endAngle = originAngle - sliceAngle * self.progressCounter;
         }
-        
         
 		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
 		CGColorRef color = self.completedColor.CGColor;
@@ -119,8 +115,15 @@
 		CGContextBeginPath(context);
 		CGContextMoveToPoint(context, center.x, center.y);
 		CGFloat startAngle = endAngle;
-        endAngle = originAngle;
-		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
+        
+        if(self.clockwise){
+            endAngle = originAngle + 2*M_PI;
+        }else{
+            endAngle = originAngle - 2*M_PI;            
+        }
+        
+        
+		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, endAngle, cgClockwise);
 		color = self.incompletedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
