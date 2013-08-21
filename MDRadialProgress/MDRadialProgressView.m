@@ -37,7 +37,11 @@
     self.sliceDividerThickness = 2;
     self.startingSlice = 1;
     self.clockwise = YES;
+	
+	self.isAccessibilityElement = YES;
 }
+
+#pragma mark - Drawing
 
 - (void)drawSlices:(NSUInteger)slicesCount
          completed:(NSUInteger)slicesCompleted
@@ -46,7 +50,7 @@
          inContext:(CGContextRef)context
 {
     BOOL cgClockwise = !self.clockwise;
-    NSUInteger startingSlice = self.startingSlice - 1;
+    NSUInteger startingSlice = self.startingSlice -1;
     
 	if (!self.sliceDividerHidden) {
 		// Draw one arc at a time.
@@ -84,13 +88,19 @@
 		CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
 		CGFloat startingAngle = sliceAngle * startingSlice;
 		CGFloat progressAngle = sliceAngle * self.progressCounter;
-        if (self.clockwise) {
-            originAngle = -M_PI_2 + startingAngle;
-			endAngle = originAngle + progressAngle;
-        } else {
-            originAngle = -M_PI_2 - startingAngle;
-			endAngle = originAngle - progressAngle;
-        }
+		
+		if (self.progressCounter == 0) {
+			originAngle = -M_PI_2;
+			endAngle = originAngle + 2 * M_PI;
+		} else {
+			if (self.clockwise) {
+				originAngle = -M_PI_2 + startingAngle;
+				endAngle = originAngle + progressAngle;
+			} else {
+				originAngle = -M_PI_2 - startingAngle;
+				endAngle = originAngle - progressAngle;
+			}
+		}
 		
 		// Draw the arcs grouped instead of individually to avoid
 		// artifacts between one slice and another.
@@ -172,6 +182,10 @@
                                     innerDiameter, innerDiameter);
     CGContextFillEllipseInRect(contextRef, circlePoint);
 }
+
+#pragma mark - Accessibility
+
+
 
 
 @end

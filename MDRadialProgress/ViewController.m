@@ -94,10 +94,10 @@
 	
 	radialView6.startingSlice = 5;
 	radialView6.progressTotal = 10;
-    radialView6.progressCounter = 4;
+    radialView6.progressCounter = 0;
     radialView6.thickness = 30;
     radialView6.backgroundColor = [UIColor whiteColor];
-	radialView6.sliceDividerHidden = NO;
+	radialView6.sliceDividerHidden = YES;
     radialView6.clockwise = YES;
     
 	[self.view addSubview:radialView6];
