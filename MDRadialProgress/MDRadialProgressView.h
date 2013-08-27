@@ -25,4 +25,6 @@
 @property (assign, nonatomic) BOOL clockwise;
 @property (assign, nonatomic) NSUInteger startingSlice;
 
+@property (assign, nonatomic) UIColor *centerColor;
+
 @end
