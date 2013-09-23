@@ -32,6 +32,7 @@
     self.completedColor = [UIColor greenColor];
     self.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
     self.sliceDividerColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
     self.thickness = 40;
     self.sliceDividerHidden = NO;
     self.sliceDividerThickness = 2;
@@ -177,10 +178,13 @@
     
     CGContextSetLineWidth(contextRef, self.thickness);
     
-    CGContextSetFillColorWithColor(contextRef, self.backgroundColor.CGColor);
     CGRect circlePoint = CGRectMake(center.x - innerRadius, center.y - innerRadius,
                                     innerDiameter, innerDiameter);
-    CGContextFillEllipseInRect(contextRef, circlePoint);
+    CGContextAddEllipseInRect(contextRef, circlePoint);
+    CGContextClip(contextRef);
+    CGContextClearRect(contextRef, circlePoint);
+    CGContextSetFillColorWithColor(contextRef, [UIColor clearColor].CGColor);
+    CGContextFillRect(contextRef, circlePoint);
 }
 
 #pragma mark - Accessibility
