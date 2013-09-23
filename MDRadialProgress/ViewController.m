@@ -15,6 +15,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.view.backgroundColor = [UIColor whiteColor];
     
     CGRect frame = CGRectMake(30, 30, 50, 50);
     MDRadialProgressView *radialView = [[MDRadialProgressView alloc] initWithFrame:frame];
@@ -36,10 +38,14 @@
     radialView2.thickness = 30;
     radialView2.sliceDividerHidden = NO;
     radialView2.sliceDividerColor = [UIColor whiteColor];
-    radialView2.sliceDividerThickness = 1;
+    radialView2.sliceDividerThickness = 2;
 
 	[self.view addSubview:radialView2];
 	
+	frame = CGRectMake(10, 180, 300, 25);
+	UILabel *label = [[UILabel alloc] initWithFrame:frame];
+	label.text = @"Lorem ipsum dolor sit...";
+	[self.view addSubview:label];
 	
 	frame = CGRectMake(30, 150, 120, 120);
     MDRadialProgressView *radialView3 = [[MDRadialProgressView alloc] initWithFrame:frame];
@@ -62,7 +68,6 @@
     radialView4.thickness = 15;
 	radialView4.incompletedColor = [UIColor orangeColor];
 	radialView4.completedColor = [UIColor purpleColor];
-	radialView4.sliceDividerColor = [UIColor yellowColor];
     radialView4.sliceDividerHidden = NO;
 	radialView4.sliceDividerThickness = 5;
     
@@ -76,27 +81,26 @@
     radialView5.progressCounter = 3;
     radialView5.thickness = 30;
     radialView5.sliceDividerHidden = NO;
-    radialView5.sliceDividerColor = [UIColor whiteColor];
+    radialView5.sliceDividerColor = [UIColor blueColor];
     radialView5.sliceDividerThickness = 1;
     radialView5.startingSlice = 1;
     radialView5.clockwise = NO;
     
 	[self.view addSubview:radialView5];
-    
-    
+	
     frame = CGRectMake(180, 300, 100, 100);
     MDRadialProgressView *radialView6 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	
 	radialView6.startingSlice = 5;
-	radialView6.progressTotal = 10;
-    radialView6.progressCounter = 0;
-    radialView6.thickness = 30;
-	radialView6.sliceDividerHidden = YES;
+	radialView6.progressTotal = 20;
+    radialView6.progressCounter = 9;
+	radialView6.startingSlice = 3;
+    radialView6.thickness = 20;
+	radialView6.completedColor = [UIColor brownColor];
+	radialView.sliceDividerThickness = 15;
     radialView6.clockwise = YES;
     
 	[self.view addSubview:radialView6];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning

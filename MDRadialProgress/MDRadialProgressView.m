@@ -9,6 +9,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MDRadialProgressView.h"
 
+#define MD_DEBUG 0
+
+
+@interface MDRadialProgressView ()
+
+// Padding from the view bounds to the outer circumference of the view.
+// Useful because at times the circle may appear "cut" by one or two pixels
+// since it's drawing over the view bounds.
+@property (assign, nonatomic) NSUInteger internalPadding;
+
+@end
+
 
 @implementation MDRadialProgressView
 
@@ -28,7 +40,7 @@
 
 - (void)internalInit
 {
-    // Default values
+    // Default values for public properties
     self.completedColor = [UIColor greenColor];
     self.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
     self.sliceDividerColor = [UIColor whiteColor];
@@ -39,7 +51,8 @@
     self.startingSlice = 1;
     self.clockwise = YES;
 	
-	self.isAccessibilityElement = YES;
+	// Private properties
+	self.internalPadding = 2;
 }
 
 #pragma mark - Drawing
@@ -137,7 +150,7 @@
     
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
     CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
-    CGFloat radius = viewSize.width / 2;
+    CGFloat radius = viewSize.width / 2 - self.internalPadding;
     [self drawSlices:self.progressTotal
 		   completed:self.progressCounter
 			  radius:radius
@@ -147,7 +160,7 @@
 	// Draw the slice separators.
 	
     int outerDiameter = viewSize.width;
-    float outerRadius = outerDiameter / 2;
+    float outerRadius = outerDiameter / 2 - self.internalPadding;
     int innerDiameter = outerDiameter - self.thickness;
     float innerRadius = innerDiameter / 2;
     
@@ -173,23 +186,24 @@
 			CGContextStrokePath(contextRef);
         }
     }
-    
-    // Draw the inner circle to fake a hole in the middle.
-    
-    CGContextSetLineWidth(contextRef, self.thickness);
-    
-    CGRect circlePoint = CGRectMake(center.x - innerRadius, center.y - innerRadius,
-                                    innerDiameter, innerDiameter);
-    CGContextAddEllipseInRect(contextRef, circlePoint);
-    CGContextClip(contextRef);
-    CGContextClearRect(contextRef, circlePoint);
-    CGContextSetFillColorWithColor(contextRef, [UIColor clearColor].CGColor);
-    CGContextFillRect(contextRef, circlePoint);
+
+#if MD_DEBUG
+	// Draw the bounds of the view for debug purposes
+	CGContextSetLineWidth(contextRef, 1);
+	CGContextSetStrokeColorWithColor(contextRef, [UIColor redColor].CGColor);
+	CGContextStrokeRect(contextRef, self.bounds);
+#endif
+	
+    // Draw a clear inner circle to fake a hole in the middle if the bg color is clearColor
+	CGContextSetLineWidth(contextRef, self.thickness);
+	CGRect innerCircle = CGRectMake(center.x - innerRadius, center.y - innerRadius,
+									innerDiameter, innerDiameter);
+	CGContextAddEllipseInRect(contextRef, innerCircle);
+	CGContextClip(contextRef);
+	CGContextClearRect(contextRef, innerCircle);
+	CGContextSetFillColorWithColor(contextRef, self.backgroundColor.CGColor);
+	CGContextFillRect(contextRef, innerCircle);
 }
-
-#pragma mark - Accessibility
-
-
 
 
 @end
