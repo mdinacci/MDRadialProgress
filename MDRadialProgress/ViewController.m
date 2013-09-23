@@ -22,7 +22,6 @@
     radialView.progressTotal = 4;
     radialView.progressCounter = 2;
     radialView.thickness = 10;
-    radialView.backgroundColor = [UIColor whiteColor];
     radialView.sliceDividerHidden = YES;
     
     [self.view addSubview:radialView];
@@ -35,7 +34,6 @@
 	radialView2.completedColor = [UIColor blueColor];
 	radialView2.incompletedColor = [UIColor redColor];
     radialView2.thickness = 30;
-    radialView2.backgroundColor = [UIColor whiteColor];
     radialView2.sliceDividerHidden = NO;
     radialView2.sliceDividerColor = [UIColor whiteColor];
     radialView2.sliceDividerThickness = 1;
@@ -48,10 +46,9 @@
 	
 	radialView3.progressTotal = 5;
     radialView3.progressCounter = 4;
-	radialView3.completedColor = [UIColor whiteColor];
+	radialView3.completedColor = [UIColor redColor];
 	radialView3.incompletedColor = [UIColor blackColor];
     radialView3.thickness = 10;
-    radialView3.backgroundColor = [UIColor blackColor];
     radialView3.sliceDividerHidden = YES;
 	
 	[self.view addSubview:radialView3];
@@ -65,7 +62,6 @@
     radialView4.thickness = 15;
 	radialView4.incompletedColor = [UIColor orangeColor];
 	radialView4.completedColor = [UIColor purpleColor];
-    radialView4.backgroundColor = [UIColor yellowColor];
 	radialView4.sliceDividerColor = [UIColor yellowColor];
     radialView4.sliceDividerHidden = NO;
 	radialView4.sliceDividerThickness = 5;
@@ -79,7 +75,6 @@
 	radialView5.progressTotal = 10;
     radialView5.progressCounter = 3;
     radialView5.thickness = 30;
-    radialView5.backgroundColor = [UIColor whiteColor];
     radialView5.sliceDividerHidden = NO;
     radialView5.sliceDividerColor = [UIColor whiteColor];
     radialView5.sliceDividerThickness = 1;
@@ -96,7 +91,6 @@
 	radialView6.progressTotal = 10;
     radialView6.progressCounter = 0;
     radialView6.thickness = 30;
-    radialView6.backgroundColor = [UIColor whiteColor];
 	radialView6.sliceDividerHidden = YES;
     radialView6.clockwise = YES;
     
