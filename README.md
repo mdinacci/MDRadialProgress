@@ -55,7 +55,7 @@ radialView.startSlice = 5
 ```
 
 ## Contributors
-[Marc Audefroy](https://github.com/MarcAudefroy) for the clockwise/counterclockwise and startSlice features.
+See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
 
 ## License (MIT)
 Copyright (c) 2013 Marco Dinacci
