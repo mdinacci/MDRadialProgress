@@ -66,7 +66,7 @@
     BOOL cgClockwise = !self.clockwise;
     NSUInteger startingSlice = self.startingSlice -1;
     
-	if (!self.sliceDividerHidden) {
+	if (!self.sliceDividerHidden && self.sliceDividerThickness > 0) {
 		// Draw one arc at a time.
         
         CGFloat sliceAngle = (2 * M_PI ) / slicesCount;

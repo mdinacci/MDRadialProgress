@@ -95,9 +95,9 @@
 	radialView6.progressTotal = 20;
     radialView6.progressCounter = 9;
 	radialView6.startingSlice = 3;
-    radialView6.thickness = 20;
+    radialView6.thickness = 80;
 	radialView6.completedColor = [UIColor brownColor];
-	radialView.sliceDividerThickness = 15;
+	radialView6.sliceDividerThickness = 0;
     radialView6.clockwise = YES;
     
 	[self.view addSubview:radialView6];
