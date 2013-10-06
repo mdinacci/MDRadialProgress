@@ -137,6 +137,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Marco Dinacci";
+				TargetAttributes = {
+					A9A38A441700C5CA00684698 = {
+						DevelopmentTeam = LGY5V34D52;
+					};
+				};
 			};
 			buildConfigurationList = A9A38A401700C5CA00684698 /* Build configuration list for PBXProject "MDRadialProgress" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -254,6 +259,7 @@
 		A9A38A691700C5CB00684698 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MDRadialProgress/MDRadialProgress-Prefix.pch";
 				INFOPLIST_FILE = "MDRadialProgress/MDRadialProgress-Info.plist";
@@ -265,6 +271,7 @@
 		A9A38A6A1700C5CB00684698 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MDRadialProgress/MDRadialProgress-Prefix.pch";
 				INFOPLIST_FILE = "MDRadialProgress/MDRadialProgress-Info.plist";
