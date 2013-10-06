@@ -1,10 +1,26 @@
 //
-//  ViewController.m
-//  MDRadialProgress
+// ViewController.m
+// MDRadialProgress
 //
-//  Created by Marco Dinacci on 25/03/2013.
-//  Copyright (c) 2013 Marco Dinacci. All rights reserved.
 //
+// Copyright (c) 2013 Marco Dinacci
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 #import "ViewController.h"
 #import "MDRadialProgressView.h"
@@ -79,9 +95,8 @@
 	
 	radialView5.progressTotal = 10;
     radialView5.progressCounter = 3;
-    radialView5.thickness = 30;
+    radialView5.thickness = 10;
     radialView5.sliceDividerHidden = NO;
-    radialView5.sliceDividerColor = [UIColor blueColor];
     radialView5.sliceDividerThickness = 1;
     radialView5.startingSlice = 1;
     radialView5.clockwise = NO;
@@ -99,6 +114,11 @@
 	radialView6.completedColor = [UIColor brownColor];
 	radialView6.sliceDividerThickness = 0;
     radialView6.clockwise = YES;
+	
+	frame = CGRectMake(80, 330, 100, 45);
+	label = [[UILabel alloc] initWithFrame:frame];
+	label.text = @"3/10";
+//	[self.view addSubview:label];
     
 	[self.view addSubview:radialView6];
 }

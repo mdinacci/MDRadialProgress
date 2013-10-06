@@ -1,14 +1,33 @@
 //
-//  MDRadialProgressView.m
-//  MDRadialProgress
+// MDRadialProgressView.m
+// MDRadialProgress
 //
-//  Created by Marco Dinacci on 25/03/2013.
-//  Copyright (c) 2013 Marco Dinacci. All rights reserved.
 //
+// Copyright (c) 2013 Marco Dinacci
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 
 #import <QuartzCore/QuartzCore.h>
 #import "MDRadialProgressView.h"
 
+
+// Enable to help debugging.
 #define MD_DEBUG 0
 
 
@@ -53,6 +72,12 @@
 	
 	// Private properties
 	self.internalPadding = 2;
+	
+	// Accessibility
+	self.isAccessibilityElement = YES;
+	self.accessibilityLabel = NSLocalizedString(@"Progress", nil);
+	[self addObserver:self forKeyPath:@"progressTotal" options:NSKeyValueObservingOptionNew context:nil];
+	[self addObserver:self forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 #pragma mark - Drawing
@@ -205,5 +230,25 @@
 	CGContextFillRect(contextRef, innerCircle);
 }
 
+# pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	// Re-calculate the accessibilityValue
+	float percentageCompleted = (100 / self.progressTotal) * self.progressCounter;
+	self.accessibilityValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
+	
+	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
+								  NSLocalizedString(@"Progress changed to:", nil),
+								  self.accessibilityValue];
+	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
+}
+
+# pragma mark - Accessibility
+
+- (UIAccessibilityTraits)accessibilityTraits
+{
+	return [super accessibilityTraits] | UIAccessibilityTraitUpdatesFrequently;
+}
 
 @end

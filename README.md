@@ -57,6 +57,13 @@ radialView.startSlice = 5
 ## Contributors
 See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
 
+## Non attribution license
+The usage of this software is governed by the MIT license (see below for full text).
+This kind of license means that you can use the software for free, even in a commercial software, 
+as long as the license text and the copyright notice are included in your software.
+
+I’m aware that some people need a license agreement which does not require attribution. If you are in that situation, you can quickly and easily buy a non-attribution license in my [http://](online license store).
+
 ## License (MIT)
 Copyright (c) 2013 Marco Dinacci
 
