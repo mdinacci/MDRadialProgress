@@ -8,6 +8,34 @@
 
 #import <Foundation/Foundation.h>
 
+static const NSString *STANDARD_THEME = @"standard";
+
 @interface MDRadialProgressTheme : NSObject
+
++ (id)themeWithName:(const NSString *)themeName;
++ (id)standardTheme;
+
+// Color of the completed steps.
+@property (strong, nonatomic) UIColor *completedColor;
+
+// Color of the incompleted steps.
+@property (strong, nonatomic) UIColor *incompletedColor;
+
+// Color of the inner center
+@property (strong, nonatomic) UIColor *centerColor;
+
+// Thickness of the progress view.
+@property (assign, nonatomic) CGFloat thickness;
+
+// Color used to draw the division between each slices.
+// Normally set to the background color so that it makes the slices
+// look separated.
+@property (strong, nonatomic) UIColor *sliceDividerColor;
+
+// Whether the slice division is hidden or not.
+@property (assign, nonatomic) BOOL sliceDividerHidden;
+
+// Regulates how far apart the slice are when sliceDividerHidden is set to YES.
+@property (assign, nonatomic) NSUInteger sliceDividerThickness;
 
 @end
