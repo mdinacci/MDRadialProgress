@@ -60,7 +60,7 @@
 	
 	frame = CGRectMake(10, 180, 300, 25);
 	UILabel *label = [[UILabel alloc] initWithFrame:frame];
-	label.text = @"Lorem ipsum dolor sit...";
+	label.text = @"Lorem ipsum dolor sit amet ...";
 	[self.view addSubview:label];
 	
 	frame = CGRectMake(30, 150, 120, 120);
@@ -72,6 +72,7 @@
 	radialView3.incompletedColor = [UIColor blackColor];
     radialView3.thickness = 10;
     radialView3.sliceDividerHidden = YES;
+	radialView3.centerColor = [UIColor colorWithRed:95/255.0 green:192/255.0 blue:206/255.0 alpha:1.0];
 	
 	[self.view addSubview:radialView3];
 	
@@ -114,11 +115,6 @@
 	radialView6.completedColor = [UIColor brownColor];
 	radialView6.sliceDividerThickness = 0;
     radialView6.clockwise = YES;
-	
-	frame = CGRectMake(80, 330, 100, 45);
-	label = [[UILabel alloc] initWithFrame:frame];
-	label.text = @"3/10";
-//	[self.view addSubview:label];
     
 	[self.view addSubview:radialView6];
 }
