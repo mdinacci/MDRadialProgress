@@ -24,6 +24,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class MDRadialProgressTheme;
+
 @interface MDRadialProgressView : UIView
 
 // The total number of steps in the progress view.
@@ -32,39 +34,20 @@
 // The number of steps currently completed.
 @property (assign, nonatomic) NSUInteger progressCounter;
 
-// Color of the completed steps.
-@property (strong, nonatomic) UIColor *completedColor;
-
-// Color of the incompleted steps.
-@property (strong, nonatomic) UIColor *incompletedColor;
-
-// Color of the inner center
-@property (strong, nonatomic) UIColor *centerColor;
-
-// Thickness of the progress view.
-@property (assign, nonatomic) CGFloat thickness;
-
-// Color used to draw the division between each slices.
-// Normally set to the background color so that it makes the slices
-// look separated.
-@property (strong, nonatomic) UIColor *sliceDividerColor;
-
-// Whether the slice division is hidden or not.
-@property (assign, nonatomic) BOOL sliceDividerHidden;
-
-// Whether the current progress should be shown or not
-@property (assign, nonatomic) BOOL showProgressSummary;
-
-// Regulates how far apart the slice are when sliceDividerHidden is set to YES.
-@property (assign, nonatomic) NSUInteger sliceDividerThickness;
-
 // Whether the progress is drawn clockwise (YES) or anticlockwise (NO)
 @property (assign, nonatomic) BOOL clockwise;
+
+// Whether the current progress should be shown or not
+// FIXME a bit redundant since one could use progressSummaryView.hidden
+@property (assign, nonatomic) BOOL showProgressSummary;
 
 // The index of the slice where the first completed step is.
 @property (assign, nonatomic) NSUInteger startingSlice;
 
 // The progress summary view, visible if showNumericProgress is set to YES
 @property (strong, nonatomic) UIView *progressSummaryView;
+
+// The theme currently used
+@property (strong, nonatomic) MDRadialProgressTheme *theme;
 
 @end

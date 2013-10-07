@@ -26,6 +26,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MDRadialProgressView.h"
 #import "MDRadialProgressLabel.h"
+#import "MDRadialProgressTheme.h"
 
 
 @interface MDRadialProgressView ()
@@ -63,15 +64,8 @@
     self.clockwise = YES;
 	self.showProgressSummary = YES;
 	
-	// Standard theme
-    self.completedColor = [UIColor greenColor];
-    self.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
-    self.sliceDividerColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor clearColor];
-	self.centerColor = [UIColor clearColor];
-    self.thickness = 40;
-    self.sliceDividerHidden = NO;
-    self.sliceDividerThickness = 2;
+	// Use standard theme by default
+    self.theme = [MDRadialProgressTheme standardTheme];
 	
 	// Private properties
 	self.internalPadding = 2;
@@ -90,6 +84,9 @@
 		[self addObserver:self.progressSummaryView forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
 		[self addObserver:self.progressSummaryView forKeyPath:@"theme" options:NSKeyValueObservingOptionNew context:nil];
 	}
+	
+	// Important to avoid showing artifacts
+	self.backgroundColor = [UIColor clearColor];
 }
 
 #pragma mark - Drawing
@@ -123,7 +120,7 @@
     BOOL cgClockwise = !self.clockwise;
     NSUInteger startingSlice = self.startingSlice -1;
     
-	if (!self.sliceDividerHidden && self.sliceDividerThickness > 0) {
+	if (!self.theme.sliceDividerHidden && self.theme.sliceDividerThickness > 0) {
 		// Draw one arc at a time.
         
         CGFloat sliceAngle = (2 * M_PI ) / slicesCount;
@@ -143,10 +140,10 @@
             CGContextAddArc(context, center.x, center.y, circleRadius,
 							startAngle, endAngle, cgClockwise);
             
-            CGColorRef color = self.incompletedColor.CGColor;
+            CGColorRef color = self.theme.incompletedColor.CGColor;
             
             if (i < slicesCompleted) {
-                color = self.completedColor.CGColor;
+                color = self.theme.completedColor.CGColor;
             }
             CGContextSetFillColorWithColor(context, color);
             CGContextFillPath(context);
@@ -179,7 +176,7 @@
 		CGContextBeginPath(context);
 		CGContextMoveToPoint(context, center.x, center.y);
 		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
-		CGColorRef color = self.completedColor.CGColor;
+		CGColorRef color = self.theme.completedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
 		
@@ -189,7 +186,7 @@
 		CGFloat startAngle = endAngle;
         endAngle = originAngle;
 		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
-		color = self.incompletedColor.CGColor;
+		color = self.theme.incompletedColor.CGColor;
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
 	}
@@ -209,14 +206,14 @@
 {
 	int outerDiameter = viewSize.width;
     float outerRadius = outerDiameter / 2 - self.internalPadding;
-    int innerDiameter = outerDiameter - self.thickness;
+    int innerDiameter = outerDiameter - self.theme.thickness;
     float innerRadius = innerDiameter / 2;
     
-    if (! self.sliceDividerHidden) {
+    if (! self.theme.sliceDividerHidden) {
         int sliceCount = self.progressTotal;
         float sliceAngle = (2 * M_PI) / sliceCount;
-        CGContextSetLineWidth(contextRef, self.sliceDividerThickness);
-        CGContextSetStrokeColorWithColor(contextRef, self.sliceDividerColor.CGColor);
+        CGContextSetLineWidth(contextRef, self.theme.sliceDividerThickness);
+        CGContextSetStrokeColorWithColor(contextRef, self.theme.sliceDividerColor.CGColor);
         for (int i = 0; i < sliceCount; i++) {
             double startAngle = sliceAngle * i - M_PI_2;
 			double endAngle = sliceAngle * (i + 1) - M_PI_2;
@@ -230,7 +227,7 @@
 			// the point where the outer arc ended to the point where the inner arc starts.
 			CGContextAddArc(contextRef, center.x, center.y, innerRadius, endAngle, startAngle, 1);
 			
-			CGContextSetStrokeColorWithColor(contextRef, self.sliceDividerColor.CGColor);
+			CGContextSetStrokeColorWithColor(contextRef, self.theme.sliceDividerColor.CGColor);
 			CGContextStrokePath(contextRef);
         }
     }
@@ -238,16 +235,16 @@
 
 - (void)drawCenter:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
-	int innerDiameter = viewSize.width - self.thickness;
+	int innerDiameter = viewSize.width - self.theme.thickness;
     float innerRadius = innerDiameter / 2;
 	
-	CGContextSetLineWidth(contextRef, self.thickness);
+	CGContextSetLineWidth(contextRef, self.theme.thickness);
 	CGRect innerCircle = CGRectMake(center.x - innerRadius, center.y - innerRadius,
 									innerDiameter, innerDiameter);
 	CGContextAddEllipseInRect(contextRef, innerCircle);
 	CGContextClip(contextRef);
 	CGContextClearRect(contextRef, innerCircle);
-	CGContextSetFillColorWithColor(contextRef, self.centerColor.CGColor);
+	CGContextSetFillColorWithColor(contextRef, self.theme.centerColor.CGColor);
 	CGContextFillRect(contextRef, innerCircle);
 }
 
