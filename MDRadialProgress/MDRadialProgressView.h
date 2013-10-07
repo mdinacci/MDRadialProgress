@@ -38,6 +38,9 @@
 // Color of the incompleted steps.
 @property (strong, nonatomic) UIColor *incompletedColor;
 
+// Color of the inner center
+@property (strong, nonatomic) UIColor *centerColor;
+
 // Thickness of the progress view.
 @property (assign, nonatomic) CGFloat thickness;
 
@@ -49,6 +52,9 @@
 // Whether the slice division is hidden or not.
 @property (assign, nonatomic) BOOL sliceDividerHidden;
 
+// Whether the current progress should be shown or not
+@property (assign, nonatomic) BOOL showProgressSummary;
+
 // Regulates how far apart the slice are when sliceDividerHidden is set to YES.
 @property (assign, nonatomic) NSUInteger sliceDividerThickness;
 
@@ -57,5 +63,8 @@
 
 // The index of the slice where the first completed step is.
 @property (assign, nonatomic) NSUInteger startingSlice;
+
+// The progress summary view, visible if showNumericProgress is set to YES
+@property (strong, nonatomic) UIView *progressSummaryView;
 
 @end

@@ -25,10 +25,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "MDRadialProgressView.h"
-
-
-// Enable to help debugging.
-#define MD_DEBUG 0
+#import "MDRadialProgressLabel.h"
 
 
 @interface MDRadialProgressView ()
@@ -60,15 +57,21 @@
 - (void)internalInit
 {
     // Default values for public properties
+	self.progressTotal = 1;
+	self.progressCounter = 0;
+	self.startingSlice = 1;
+    self.clockwise = YES;
+	self.showProgressSummary = YES;
+	
+	// Standard theme
     self.completedColor = [UIColor greenColor];
     self.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
     self.sliceDividerColor = [UIColor whiteColor];
     self.backgroundColor = [UIColor clearColor];
+	self.centerColor = [UIColor clearColor];
     self.thickness = 40;
     self.sliceDividerHidden = NO;
     self.sliceDividerThickness = 2;
-    self.startingSlice = 1;
-    self.clockwise = YES;
 	
 	// Private properties
 	self.internalPadding = 2;
@@ -78,9 +81,38 @@
 	self.accessibilityLabel = NSLocalizedString(@"Progress", nil);
 	[self addObserver:self forKeyPath:@"progressTotal" options:NSKeyValueObservingOptionNew context:nil];
 	[self addObserver:self forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
+	
+	// Add the summary view as an observer for changes.
+	if (self.showProgressSummary) {
+		[self addSubview:self.progressSummaryView];
+		
+		[self addObserver:self.progressSummaryView forKeyPath:@"progressTotal" options:NSKeyValueObservingOptionNew context:nil];
+		[self addObserver:self.progressSummaryView forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
+		[self addObserver:self.progressSummaryView forKeyPath:@"theme" options:NSKeyValueObservingOptionNew context:nil];
+	}
 }
 
 #pragma mark - Drawing
+
+- (void)drawRect:(CGRect)rect
+{
+    if (self.progressTotal <= 0) {
+        return;
+    }
+    
+	CGContextRef contextRef = UIGraphicsGetCurrentContext();
+	CGSize viewSize = self.bounds.size;
+	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
+	
+    // Draw the slices.
+    [self drawSlices:contextRef withViewSize:viewSize andCenter:center];
+	
+	// Draw the slice separators.
+	[self drawSlicesSeparators:contextRef withViewSize:viewSize andCenter:center];
+	
+    // Draw the center.
+	[self drawCenter:contextRef withViewSize:viewSize andCenter:center];
+}
 
 - (void)drawSlices:(NSUInteger)slicesCount
          completed:(NSUInteger)slicesCompleted
@@ -163,28 +195,19 @@
 	}
 }
 
-- (void)drawRect:(CGRect)rect
+- (void)drawSlices:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
-    if (self.progressTotal <= 0) {
-        return;
-    }
-    
-    // Draw the slices.
-    
-	CGSize viewSize = self.bounds.size;
-    
-    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
     CGFloat radius = viewSize.width / 2 - self.internalPadding;
     [self drawSlices:self.progressTotal
 		   completed:self.progressCounter
 			  radius:radius
 			  center:center
 		   inContext:contextRef];
-    
-	// Draw the slice separators.
-	
-    int outerDiameter = viewSize.width;
+}
+
+- (void)drawSlicesSeparators:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
+{
+	int outerDiameter = viewSize.width;
     float outerRadius = outerDiameter / 2 - self.internalPadding;
     int innerDiameter = outerDiameter - self.thickness;
     float innerRadius = innerDiameter / 2;
@@ -211,22 +234,20 @@
 			CGContextStrokePath(contextRef);
         }
     }
+}
 
-#if MD_DEBUG
-	// Draw the bounds of the view for debug purposes
-	CGContextSetLineWidth(contextRef, 1);
-	CGContextSetStrokeColorWithColor(contextRef, [UIColor redColor].CGColor);
-	CGContextStrokeRect(contextRef, self.bounds);
-#endif
+- (void)drawCenter:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
+{
+	int innerDiameter = viewSize.width - self.thickness;
+    float innerRadius = innerDiameter / 2;
 	
-    // Draw a clear inner circle to fake a hole in the middle if the bg color is clearColor
 	CGContextSetLineWidth(contextRef, self.thickness);
 	CGRect innerCircle = CGRectMake(center.x - innerRadius, center.y - innerRadius,
 									innerDiameter, innerDiameter);
 	CGContextAddEllipseInRect(contextRef, innerCircle);
 	CGContextClip(contextRef);
 	CGContextClearRect(contextRef, innerCircle);
-	CGContextSetFillColorWithColor(contextRef, self.backgroundColor.CGColor);
+	CGContextSetFillColorWithColor(contextRef, self.centerColor.CGColor);
 	CGContextFillRect(contextRef, innerCircle);
 }
 
@@ -234,14 +255,34 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	// Re-calculate the accessibilityValue
+	// Re-set the accessibilityValue and the progressSummaryView text.
 	float percentageCompleted = (100 / self.progressTotal) * self.progressCounter;
-	self.accessibilityValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
+	
+	NSString *newValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
+	self.accessibilityValue = newValue;
 	
 	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
 								  NSLocalizedString(@"Progress changed to:", nil),
 								  self.accessibilityValue];
 	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
+}
+
+# pragma mark - Setters
+
+- (void)setShowProgressSummary:(BOOL)showProgressSummary
+{
+	_showProgressSummary = showProgressSummary;
+	if (_showProgressSummary && self.progressSummaryView == NULL) {
+//		CGFloat radius = (self.bounds.size.width - self.thickness) / 2;
+//		CGRect frame = CGRectMake(self.center.x, self.center.y, radius, radius);
+		
+//		float percentageCompleted = (100 / self.progressTotal) * self.progressCounter;
+//		self.progressSummaryView = [[MDRadialProgressLabel alloc] initWithFrame:frame];
+//		self.progressSummaryView.textColor = self.completedColor;
+//		self.progressSummaryView.text = [NSString stringWithFormat:@"%.2f", percentageCompleted];
+	}
+	
+	self.progressSummaryView.hidden = !_showProgressSummary;
 }
 
 # pragma mark - Accessibility
