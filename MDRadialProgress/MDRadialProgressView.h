@@ -24,7 +24,10 @@
 
 #import <UIKit/UIKit.h>
 
+
 @class MDRadialProgressTheme;
+@class MDRadialProgressLabel;
+
 
 @interface MDRadialProgressView : UIView
 
@@ -37,17 +40,13 @@
 // Whether the progress is drawn clockwise (YES) or anticlockwise (NO)
 @property (assign, nonatomic) BOOL clockwise;
 
-// Whether the current progress should be shown or not
-// FIXME a bit redundant since one could use progressSummaryView.hidden
-@property (assign, nonatomic) BOOL showProgressSummary;
-
 // The index of the slice where the first completed step is.
 @property (assign, nonatomic) NSUInteger startingSlice;
 
-// The progress summary view, visible if showNumericProgress is set to YES
-@property (strong, nonatomic) UIView *progressSummaryView;
-
 // The theme currently used
 @property (strong, nonatomic) MDRadialProgressTheme *theme;
+
+// The label shown in the view's center.
+@property (strong, nonatomic) MDRadialProgressLabel *progressLabel;
 
 @end

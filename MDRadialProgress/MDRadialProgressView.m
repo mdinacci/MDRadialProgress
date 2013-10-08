@@ -41,6 +41,8 @@
 
 @implementation MDRadialProgressView
 
+#pragma mark - Initialization
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -62,10 +64,13 @@
 	self.progressCounter = 0;
 	self.startingSlice = 1;
     self.clockwise = YES;
-	self.showProgressSummary = YES;
 	
 	// Use standard theme by default
     self.theme = [MDRadialProgressTheme standardTheme];
+	
+	// Init the progress label, even if not visible.
+	self.progressLabel = [[MDRadialProgressLabel alloc] initWithFrame:self.bounds andTheme:self.theme];
+	[self addSubview:self.progressLabel];
 	
 	// Private properties
 	self.internalPadding = 2;
@@ -73,21 +78,27 @@
 	// Accessibility
 	self.isAccessibilityElement = YES;
 	self.accessibilityLabel = NSLocalizedString(@"Progress", nil);
-	[self addObserver:self forKeyPath:@"progressTotal" options:NSKeyValueObservingOptionNew context:nil];
-	[self addObserver:self forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
-	
-	// Add the summary view as an observer for changes.
-	if (self.showProgressSummary) {
-		[self addSubview:self.progressSummaryView];
-		
-		[self addObserver:self.progressSummaryView forKeyPath:@"progressTotal" options:NSKeyValueObservingOptionNew context:nil];
-		[self addObserver:self.progressSummaryView forKeyPath:@"progressCounter" options:NSKeyValueObservingOptionNew context:nil];
-		[self addObserver:self.progressSummaryView forKeyPath:@"theme" options:NSKeyValueObservingOptionNew context:nil];
-	}
 	
 	// Important to avoid showing artifacts
 	self.backgroundColor = [UIColor clearColor];
+	
+	[self addObserver:self.progressLabel forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
 }
+
+#pragma mark - Setters
+
+- (void)setProgressCounter:(NSUInteger)progressCounter
+{
+	_progressCounter = progressCounter;
+	[self notifyProgressChange];
+}
+
+- (void)setProgressTotal:(NSUInteger)progressTotal
+{
+	_progressTotal = progressTotal;
+	[self notifyProgressChange];
+}
+
 
 #pragma mark - Drawing
 
@@ -248,45 +259,27 @@
 	CGContextFillRect(contextRef, innerCircle);
 }
 
-# pragma mark - KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	// Re-set the accessibilityValue and the progressSummaryView text.
-	float percentageCompleted = (100 / self.progressTotal) * self.progressCounter;
-	
-	NSString *newValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
-	self.accessibilityValue = newValue;
-	
-	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
-								  NSLocalizedString(@"Progress changed to:", nil),
-								  self.accessibilityValue];
-	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
-}
-
-# pragma mark - Setters
-
-- (void)setShowProgressSummary:(BOOL)showProgressSummary
-{
-	_showProgressSummary = showProgressSummary;
-	if (_showProgressSummary && self.progressSummaryView == NULL) {
-//		CGFloat radius = (self.bounds.size.width - self.thickness) / 2;
-//		CGRect frame = CGRectMake(self.center.x, self.center.y, radius, radius);
-		
-//		float percentageCompleted = (100 / self.progressTotal) * self.progressCounter;
-//		self.progressSummaryView = [[MDRadialProgressLabel alloc] initWithFrame:frame];
-//		self.progressSummaryView.textColor = self.completedColor;
-//		self.progressSummaryView.text = [NSString stringWithFormat:@"%.2f", percentageCompleted];
-	}
-	
-	self.progressSummaryView.hidden = !_showProgressSummary;
-}
-
 # pragma mark - Accessibility
 
 - (UIAccessibilityTraits)accessibilityTraits
 {
 	return [super accessibilityTraits] | UIAccessibilityTraitUpdatesFrequently;
+}
+
+# pragma mark - Notifications
+
+- (void)notifyProgressChange
+{
+	// Re-set the accessibilityValue and the progressSummaryView text.
+	float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
+	
+	self.accessibilityValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
+	self.progressLabel.text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
+	
+	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
+								  NSLocalizedString(@"Progress changed to:", nil),
+								  self.accessibilityValue];
+	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
 }
 
 @end
