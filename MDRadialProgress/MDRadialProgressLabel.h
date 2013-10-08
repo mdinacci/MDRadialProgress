@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class MDRadialProgressTheme;
+
 @interface MDRadialProgressLabel : UILabel
+
+- (id)initWithFrame:(CGRect)frame andTheme:(MDRadialProgressTheme *)theme;
 
 @end
