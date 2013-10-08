@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+
 static const NSString *STANDARD_THEME = @"standard";
+
+static NSString *keyThickness = @"theme.thickness";
+
 
 @interface MDRadialProgressTheme : NSObject
 
@@ -37,5 +41,20 @@ static const NSString *STANDARD_THEME = @"standard";
 
 // Regulates how far apart the slice are when sliceDividerHidden is set to YES.
 @property (assign, nonatomic) NSUInteger sliceDividerThickness;
+
+
+// Label properties
+
+// Color of the label text.
+@property (strong, nonatomic) UIColor *labelColor;
+
+// Shall we drop a shadow ?
+@property (assign, nonatomic) BOOL dropLabelShadow;
+
+// Shadow color of the label text.
+@property (strong, nonatomic) UIColor *labelShadowColor;
+
+// Font to use in the label.
+@property (strong, nonatomic) UIFont *font;
 
 @end

@@ -8,6 +8,12 @@
 
 #import "MDRadialProgressTheme.h"
 
+
+// The font size is automatically adapted but this is the maximum it will get
+// unless overridden by the user.
+static const int kMaxFontSize = 64;
+
+
 @implementation MDRadialProgressTheme
 
 + (id)themeWithName:(const NSString *)themeName
@@ -20,6 +26,12 @@
     theme.thickness = 15;
     theme.sliceDividerHidden = NO;
     theme.sliceDividerThickness = 2;
+	
+	// Label
+	theme.labelColor = [UIColor blackColor];
+	theme.dropLabelShadow = YES;
+	theme.labelShadowColor = [UIColor darkGrayColor];
+	theme.font = [UIFont systemFontOfSize:kMaxFontSize];
 	
 	return theme;
 }
