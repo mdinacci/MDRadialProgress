@@ -2,6 +2,18 @@
 
 A custom UIView useful to represent progress in discrete steps. 
 
+It has the following features:
+
+* Draw progress in separated slices or as a single arc.
+* Can customize all colors, the distance of the slices and their thickness. 
+* Clockwise and anti-clockwise drawing order.
+* Can start progress from any slice, not necessarily from the top.
+* Display a label with the current progress. The label size automatically adapts to the space available.
+* Themes support for easier customization of multiple views.
+* Fully accessible
+* Support iOS 6.0+
+* Original BSD and Commercial Non-Attribution licenses available (you can use it in commercial software).
+
 ![Screenshot](screenshot.png "Screenshot")
 
 ## Documentation
@@ -14,47 +26,18 @@ Either use CocoaPods by adding the line below to your _Podfile_:
 pod MDRadialProgress
 ```
 
-or copy `MDRadialProgress.{h|m}` into your project.
+or copy `MDRadialProgress.{h|m}`, `MDRadialProgressLabel.{h|m}`, `MDRadialProgressTheme.{h|m}` into your project.
 
 ### Usage
 
-There is an example included in `ViewController.m`. Tweak it and run it to
-experiment. 
+There is an extensive example included in `ViewController.m`. Tweak it and run it to experiment. 
 
-Here's an explanation of the options available for customisation:
+Version 1.0 has introduced the concept of *theme* in order to make the customisation of many progress views
+simpler. If for example you have a table where in every cell you have a MDRadialProgressView, now you
+can create a theme with the appearance you like and apply it to all views, instead of customising
+each view singularly.
 
-```
-CGRect frame = CGRectMake(30, 30, 50, 50);
-MDRadialProgressView *radialView = [[MDRadialProgressView alloc] initWithFrame:frame];
-
-// Total number of steps    
-radialView.progressTotal = 10;
-// Number of steps completed
-radialView.progressCounter = 2;
-
-// Customisations (all optional)
-radialView.completedColor = [UIColor blueColor];
-radialView.incompletedColor = [UIColor redColor];
-radialView.thickness = 30;
-
-// Be sure to use the same color for background and sliceDivider to simulate
-// the space between one step and another.
-radialView.backgroundColor = [UIColor whiteColor];
-radialView.sliceDividerColor = [UIColor whiteColor];
-
-// if sliceDividerHidden is set to YES there won't be any separation between
-// each progress step (see first and third example in the picture).
-radialView.sliceDividerHidden = NO;
-radialView.sliceDividerThickness = 1;
-
-// Draw the progress counterclockwise if you want
-radialView.clockwise = NO;
-
-// Start from the fifth slice (counting starts from 1)
-radialView.startSlice = 5
-```
-
-# Localization
+## Localization
 The component is fully accessible and it uses two labels that can be used by
 VoiceOver to speak the current progress value to the user. 
 If you want to provide localized text messages translate these two labels in your Localization.strings files:
@@ -62,36 +45,25 @@ If you want to provide localized text messages translate these two labels in you
 "Progress"
 "Progress changed to:"
 
+## License
+From version 1.0, the software changed license from MIT to the original BSD.
+
+The original BSD allows you to use and redistribute the software in both Open Source
+and commercial applications, **but it requires attribution**. 
+Your software must contain, either in the software itself or on the product page and in
+any advertising material the sentence:
+
+```
+This product includes the MDRadialProgress software component developed by Marco Dinacci.
+```
+
+I'm aware that some people need a license agreement which does not require attribution. If you’re in that situation, you can easily purchase a non-attribution license from my [online license store](http://sites.fastspring.com/intransitione/product/mdradialprogresslicenses).
+
+If the original BSD license doesn't cut for you please let me know by writing an e-mail at
+hello AT infinityrealm.com. I'll be happy to help.
+
+Note that all versions before 1.0 are still licensed under the MIT license.
+
 ## Contributors
 See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
-
-## Non attribution license
-The usage of this software is governed by the MIT license (see below for full text).
-This kind of license means that you can use the software for free, even in a commercial software, 
-as long as the license text and the copyright notice are included in your software.
-
-I’m aware that some people need a license agreement which does not require attribution. 
-If you are in that situation, please contact me at hello AT infinityrealm.com to discuss
-non-attribution licensing options.
-
-## License (MIT)
-Copyright (c) 2013 Marco Dinacci
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all 
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
