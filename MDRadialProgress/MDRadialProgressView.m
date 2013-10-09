@@ -184,14 +184,16 @@
 		CGContextFillPath(context);
 		
 		// Incompleted slices
-		CGContextBeginPath(context);
-		CGContextMoveToPoint(context, center.x, center.y);
-		CGFloat startAngle = endAngle;
-        endAngle = originAngle;
-		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
-		color = self.incompletedColor.CGColor;
-		CGContextSetFillColorWithColor(context, color);
-		CGContextFillPath(context);
+		if (self.progressCounter < self.progressTotal) {
+			CGContextBeginPath(context);
+			CGContextMoveToPoint(context, center.x, center.y);
+			CGFloat startAngle = endAngle;
+			endAngle = originAngle;
+			CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
+			color = self.incompletedColor.CGColor;
+			CGContextSetFillColorWithColor(context, color);
+			CGContextFillPath(context);
+		}
 	}
 }
 
