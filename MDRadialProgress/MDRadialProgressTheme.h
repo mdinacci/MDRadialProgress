@@ -11,8 +11,6 @@
 
 static const NSString *STANDARD_THEME = @"standard";
 
-static NSString *keyThickness = @"theme.thickness";
-
 
 @interface MDRadialProgressTheme : NSObject
 
@@ -53,6 +51,9 @@ static NSString *keyThickness = @"theme.thickness";
 
 // Shadow color of the label text.
 @property (strong, nonatomic) UIColor *labelShadowColor;
+
+// Shadow offset
+@property (assign, nonatomic) CGSize labelShadowOffset;
 
 // Font to use in the label.
 @property (strong, nonatomic) UIFont *font;

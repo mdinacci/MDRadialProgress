@@ -18,27 +18,37 @@ static const int kMaxFontSize = 64;
 
 + (id)themeWithName:(const NSString *)themeName
 {
-	MDRadialProgressTheme *theme = [[MDRadialProgressTheme alloc] init];
-	theme.completedColor = [UIColor greenColor];
-    theme.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
-    theme.sliceDividerColor = [UIColor whiteColor];
-	theme.centerColor = [UIColor clearColor];
-    theme.thickness = 15;
-    theme.sliceDividerHidden = NO;
-    theme.sliceDividerThickness = 2;
-	
-	// Label
-	theme.labelColor = [UIColor blackColor];
-	theme.dropLabelShadow = YES;
-	theme.labelShadowColor = [UIColor darkGrayColor];
-	theme.font = [UIFont systemFontOfSize:kMaxFontSize];
-	
-	return theme;
+	// TODO implement other themes.
+	return [[MDRadialProgressTheme alloc] init];
 }
 
 + (id)standardTheme
 {
 	return [MDRadialProgressTheme themeWithName:STANDARD_THEME];
+}
+
+- (id)init
+{
+	self = [super init];
+	if (self) {
+		// View
+		self.completedColor = [UIColor greenColor];
+		self.incompletedColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
+		self.sliceDividerColor = [UIColor whiteColor];
+		self.centerColor = [UIColor clearColor];
+		self.thickness = 15;
+		self.sliceDividerHidden = NO;
+		self.sliceDividerThickness = 2;
+		
+		// Label
+		self.labelColor = [UIColor blackColor];
+		self.dropLabelShadow = YES;
+		self.labelShadowColor = [UIColor lightGrayColor];
+		self.labelShadowOffset = CGSizeMake(1, 1);
+		self.font = [UIFont systemFontOfSize:kMaxFontSize];
+	}
+	
+	return self;
 }
 
 @end
