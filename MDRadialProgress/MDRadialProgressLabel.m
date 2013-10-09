@@ -47,7 +47,7 @@
 		self.font = theme.font;
 		self.textAlignment = UITextAlignmentCenter;
 		self.textColor = theme.labelColor;
-		self.pointSizeToWidthFactor = 3.0/5.0;
+		self.pointSizeToWidthFactor = 0.5;
 		self.adjustFontSizeToFitBounds = YES;
 		if (theme.dropLabelShadow) {
 			self.shadowColor = theme.labelShadowColor;
@@ -57,7 +57,10 @@
 		// Align horizontally and vertically (numberOfLines) the label.
 		self.numberOfLines = 0;
 		self.adjustsFontSizeToFitWidth = YES;
-		self.adjustsLetterSpacingToFitWidth = YES;
+		
+		// Very important because iOS 6 uses a white color which will results
+		// in the label drawing over the MDRadialProgressView.
+		self.backgroundColor = [UIColor clearColor];
     }
 	
     return self;
