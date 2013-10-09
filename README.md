@@ -54,6 +54,14 @@ radialView.clockwise = NO;
 radialView.startSlice = 5
 ```
 
+# Localization
+The component is fully accessible and it uses two labels that can be used by
+VoiceOver to speak the current progress value to the user. 
+If you want to provide localized text messages translate these two labels in your Localization.strings files:
+
+"Progress"
+"Progress changed to:"
+
 ## Contributors
 See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
 
