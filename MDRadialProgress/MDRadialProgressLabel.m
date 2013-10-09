@@ -30,55 +30,67 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.hidden = NO;
-		self.textAlignment = UITextAlignmentCenter;
-
-		// Center in the frame's center
-		[self centerInFrame:frame];
 		
-		// Reduce the frame according to the thickness declared in the theme.
-		CGFloat width = frame.size.width - theme.thickness;
-		CGFloat height = frame.size.height - theme.thickness;
-		CGRect adjustedFrame = CGRectMake(frame.origin.x + theme.thickness, frame.origin.y + theme.thickness, width, height);
+		// Center it in the frame.
+		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
+		self.center = center;
+		
+		// Reduce the bounds according to the thickness declared in the theme.
+		// This may change later, see observeValueForKeyPath...
+		CGFloat offset = theme.thickness;
+		CGFloat width = frame.size.width - offset;
+		CGFloat height = frame.size.height - offset;
+		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset, width, height);
 		self.bounds = adjustedFrame;
 		
+		// Customise appearance
+		self.font = theme.font;
+		self.textAlignment = UITextAlignmentCenter;
 		self.textColor = theme.labelColor;
+		self.pointSizeToWidthFactor = 3.0/5.0;
+		self.adjustFontSizeToFitBounds = YES;
 		if (theme.dropLabelShadow) {
-			self.layer.shadowColor = theme.labelShadowColor.CGColor;
+			self.shadowColor = theme.labelShadowColor;
+			self.shadowOffset = theme.labelShadowOffset;
 		}
 		
-		// Align horizontally and vertically the label.
+		// Align horizontally and vertically (numberOfLines) the label.
 		self.numberOfLines = 0;
 		self.adjustsFontSizeToFitWidth = YES;
 		self.adjustsLetterSpacingToFitWidth = YES;
-		
-		self.font = theme.font;
     }
+	
     return self;
 }
 
-- (void)centerInFrame:(CGRect)frame
+
+- (void)drawRect:(CGRect)rect
 {
-	CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
-	self.center = center;
+	if (self.adjustFontSizeToFitBounds) {
+		// adjustsFontSizeToFitWidth works but the text look too big when the progress view is small.
+		// This scale down the font until its point size is less than pointSizeToWidthFactor of the bounds' width.
+		CGFloat maxWidth = rect.size.width * self.pointSizeToWidthFactor;
+		while (self.font.pointSize > maxWidth) {
+			self.font = [self.font fontWithSize:self.font.pointSize - 1];
+		}
+	}
+	
+	[super drawRect:rect];
 }
 
 #pragma mark - KVO
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if ([keyPath isEqualToString:keyThickness]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
-		CGFloat thickness = view.theme.thickness;
+		CGFloat offset = view.theme.thickness;
 		CGRect frame = view.frame;
-		CGRect adjustedFrame = CGRectMake(frame.origin.x + thickness, frame.origin.y + thickness,
-										  frame.size.width - thickness, frame.size.height - thickness);
+		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset,
+										  frame.size.width - offset, frame.size.height - offset);
 		
-		[self setNeedsLayout];
-		[self setNeedsDisplay];
-
 		self.bounds = adjustedFrame;
+		[self setNeedsLayout];
 	}
 }
 
