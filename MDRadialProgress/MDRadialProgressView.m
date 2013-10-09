@@ -47,17 +47,26 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self internalInit];
+        [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andTheme:(MDRadialProgressTheme *)theme
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self internalInitWithTheme:theme];
     }
     return self;
 }
 
 - (void)awakeFromNib
 {
-    [self internalInit];
+    [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
 }
 
-- (void)internalInit
+- (void)internalInitWithTheme:(MDRadialProgressTheme *)theme
 {
     // Default values for public properties
 	self.progressTotal = 1;
@@ -66,11 +75,11 @@
     self.clockwise = YES;
 	
 	// Use standard theme by default
-    self.theme = [MDRadialProgressTheme standardTheme];
+	self.theme = theme;
 	
 	// Init the progress label, even if not visible.
-	self.progressLabel = [[MDRadialProgressLabel alloc] initWithFrame:self.bounds andTheme:self.theme];
-	[self addSubview:self.progressLabel];
+	self.label = [[MDRadialProgressLabel alloc] initWithFrame:self.bounds andTheme:self.theme];
+	[self addSubview:self.label];
 	
 	// Private properties
 	self.internalPadding = 2;
@@ -82,7 +91,8 @@
 	// Important to avoid showing artifacts
 	self.backgroundColor = [UIColor clearColor];
 	
-	[self addObserver:self.progressLabel forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
+	// Register the progress label for changes in the thickness so that it can be repositioned.
+	[self addObserver:self.label forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
 }
 
 #pragma mark - Setters
@@ -91,14 +101,15 @@
 {
 	_progressCounter = progressCounter;
 	[self notifyProgressChange];
+	[self setNeedsDisplay];
 }
 
 - (void)setProgressTotal:(NSUInteger)progressTotal
 {
 	_progressTotal = progressTotal;
 	[self notifyProgressChange];
+	[self setNeedsDisplay];
 }
-
 
 #pragma mark - Drawing
 
@@ -113,7 +124,12 @@
 	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
 	
     // Draw the slices.
-    [self drawSlices:contextRef withViewSize:viewSize andCenter:center];
+	CGFloat radius = viewSize.width / 2 - self.internalPadding;
+    [self drawSlices:self.progressTotal
+		   completed:self.progressCounter
+			  radius:radius
+			  center:center
+		   inContext:contextRef];
 	
 	// Draw the slice separators.
 	[self drawSlicesSeparators:contextRef withViewSize:viewSize andCenter:center];
@@ -183,6 +199,7 @@
 		
 		// Draw the arcs grouped instead of individually to avoid
 		// artifacts between one slice and another.
+		
 		// Completed slices.
 		CGContextBeginPath(context);
 		CGContextMoveToPoint(context, center.x, center.y);
@@ -191,26 +208,18 @@
 		CGContextSetFillColorWithColor(context, color);
 		CGContextFillPath(context);
 		
-		// Incompleted slices
-		CGContextBeginPath(context);
-		CGContextMoveToPoint(context, center.x, center.y);
-		CGFloat startAngle = endAngle;
-        endAngle = originAngle;
-		CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
-		color = self.theme.incompletedColor.CGColor;
-		CGContextSetFillColorWithColor(context, color);
-		CGContextFillPath(context);
+		if (self.progressCounter < self.progressTotal) {
+			// Incompleted slices
+			CGContextBeginPath(context);
+			CGContextMoveToPoint(context, center.x, center.y);
+			CGFloat startAngle = endAngle;
+			endAngle = originAngle;
+			CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
+			color = self.theme.incompletedColor.CGColor;
+			CGContextSetFillColorWithColor(context, color);
+			CGContextFillPath(context);
+		}
 	}
-}
-
-- (void)drawSlices:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
-{
-    CGFloat radius = viewSize.width / 2 - self.internalPadding;
-    [self drawSlices:self.progressTotal
-		   completed:self.progressCounter
-			  radius:radius
-			  center:center
-		   inContext:contextRef];
 }
 
 - (void)drawSlicesSeparators:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
@@ -270,11 +279,11 @@
 
 - (void)notifyProgressChange
 {
-	// Re-set the accessibilityValue and the progressSummaryView text.
+	// Update the accessibilityValue and the progressSummaryView text.
 	float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
 	
 	self.accessibilityValue = [NSString stringWithFormat:@"%.2f", percentageCompleted];
-	self.progressLabel.text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
+	self.label.text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
 	
 	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
 								  NSLocalizedString(@"Progress changed to:", nil),
