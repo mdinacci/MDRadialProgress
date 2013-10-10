@@ -59,7 +59,7 @@ This product includes the MDRadialProgress software component developed by Marco
 
 I'm aware that some people need a license agreement which does not require attribution. If you’re in that situation, you can easily purchase a non-attribution license from my [online license store](http://sites.fastspring.com/intransitione/product/mdradialprogresslicenses).
 
-If the original BSD license doesn't cut for you please let me know by writing an e-mail at
+If the original BSD license doesn't cut it for you please let me know by writing an e-mail at
 hello AT infinityrealm.com. I'll be happy to help.
 
 Note that all versions before 1.0 are still licensed under the MIT license.
