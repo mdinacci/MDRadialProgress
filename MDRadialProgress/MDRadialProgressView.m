@@ -49,6 +49,10 @@
     [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
 }
 
+- (void)dealloc {
+    [self removeObserver:self.label forKeyPath:keyThickness];
+}
+
 - (void)internalInitWithTheme:(MDRadialProgressTheme *)theme
 {
     // Default values for public properties
