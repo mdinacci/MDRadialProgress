@@ -1,0 +1,8 @@
+1.0.1
+
+Fixes a minor bug (KV observer was never removed).
+Changes: https://github.com/mdinacci/MDRadialProgress/commit/d61e1c32067f1fd65354e611643fd3da154b929d
+
+1.0.0
+
+First public version
