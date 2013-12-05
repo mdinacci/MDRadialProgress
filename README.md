@@ -67,3 +67,5 @@ Note that all versions before 1.0 are still licensed under the MIT license.
 ## Contributors
 See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mdinacci/mdradialprogress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
