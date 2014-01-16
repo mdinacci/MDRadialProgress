@@ -121,15 +121,6 @@
 
 	[scrollView addSubview:radialView2];
     
-    //demonstrates that progressCounter will fail if progressCounter is not in main queue
-    dispatch_queue_t metronomeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-    dispatch_async(metronomeQueue, ^{
-        for (int i = 1; i < 6; i++) {
-            radialView2.progressCounter = i;
-            [NSThread sleepForTimeInterval:0.5];
-        }
-    });
-    
 //	Example 2 ========================================================================
 	
 	y += 130;

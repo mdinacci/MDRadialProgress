@@ -1,3 +1,7 @@
+1.0.2
+
+Make sure setNeedsDisplay is called from the main thread.
+
 1.0.1
 
 Fixes a minor bug (KV observer was never removed).
