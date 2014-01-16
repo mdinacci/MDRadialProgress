@@ -88,14 +88,20 @@
 {
 	_progressCounter = progressCounter;
 	[self notifyProgressChange];
-	[self setNeedsDisplay];
+    
+    //setNeedsDisplay needs to be in the main queue to update the drawRect if the caller of this method is in a different queue
+	dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
 }
 
 - (void)setProgressTotal:(NSUInteger)progressTotal
 {
 	_progressTotal = progressTotal;
 	[self notifyProgressChange];
-	[self setNeedsDisplay];
+	dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
 }
 
 #pragma mark - Drawing
