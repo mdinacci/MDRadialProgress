@@ -1,3 +1,8 @@
+1.0.3
+
+Fixed issue #12 on Github that caused an "eclipse" effect when the incompletedColor was the same
+color as the background color and progressCounter was zero.
+
 1.0.2
 
 Make sure setNeedsDisplay is called from the main thread.
