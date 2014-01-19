@@ -116,16 +116,18 @@
 	CGSize viewSize = self.bounds.size;
 	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
 	
-    // Draw the slices.
-	CGFloat radius = viewSize.width / 2 - self.internalPadding;
-    [self drawSlices:self.progressTotal
-		   completed:self.progressCounter
-			  radius:radius
-			  center:center
-		   inContext:contextRef];
-	
-	// Draw the slice separators.
-	[self drawSlicesSeparators:contextRef withViewSize:viewSize andCenter:center];
+	if (self.progressCounter > 0) {
+		// Draw the slices.
+		CGFloat radius = viewSize.width / 2 - self.internalPadding;
+		[self drawSlices:self.progressTotal
+			   completed:self.progressCounter
+				  radius:radius
+				  center:center
+			   inContext:contextRef];
+		
+		// Draw the slice separators.
+		[self drawSlicesSeparators:contextRef withViewSize:viewSize andCenter:center];
+	}
 	
     // Draw the center.
 	[self drawCenter:contextRef withViewSize:viewSize andCenter:center];

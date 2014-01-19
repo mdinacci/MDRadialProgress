@@ -207,7 +207,22 @@
     
 	[scrollView addSubview:radialView6];
 //	Example 6 ========================================================================
+
+	y += 130;
 	
+//	Example 11 ========================================================================
+	label = [self labelAtY:y andText:@"Clear incompletedColor: "];
+	[scrollView addSubview:label];
+	
+	frame = CGRectMake(x, y, 100, 100);
+    MDRadialProgressView *radialView11 = [self progressViewWithFrame:frame];
+	radialView11.progressTotal = 10;
+    radialView11.progressCounter = 0;
+	radialView11.theme.incompletedColor = [UIColor clearColor];
+	radialView11.theme.centerColor = [UIColor redColor];
+    radialView11.theme.sliceDividerHidden = YES;
+	radialView11.label.hidden = YES;
+	[scrollView addSubview:radialView11];
 }
 
 - (void)didReceiveMemoryWarning
