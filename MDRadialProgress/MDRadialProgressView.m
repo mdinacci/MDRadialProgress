@@ -89,7 +89,8 @@
 	_progressCounter = progressCounter;
 	[self notifyProgressChange];
     
-    //setNeedsDisplay needs to be in the main queue to update the drawRect if the caller of this method is in a different queue
+    // setNeedsDisplay needs to be in the main queue to update
+	// the drawRect if the caller of this method is in a different queue.
 	dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
     });
@@ -99,6 +100,7 @@
 {
 	_progressTotal = progressTotal;
 	[self notifyProgressChange];
+	
 	dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
     });
@@ -116,16 +118,18 @@
 	CGSize viewSize = self.bounds.size;
 	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
 	
-	if (self.progressCounter > 0) {
-		// Draw the slices.
-		CGFloat radius = viewSize.width / 2 - self.internalPadding;
+	// Draw the slices if there's at least some progress or if, even without progress, the slice dividers are visible.
+	if (self.progressCounter > 0 || (self.progressCounter == 0 && ! self.theme.sliceDividerHidden)) {
+		double radius = viewSize.width / 2 - self.internalPadding;
 		[self drawSlices:self.progressTotal
 			   completed:self.progressCounter
 				  radius:radius
 				  center:center
 			   inContext:contextRef];
-		
-		// Draw the slice separators.
+	}
+	
+	// Draw the slice separators, unless the sliceDividerHidden property is true.
+	if (! self.theme.sliceDividerHidden) {
 		[self drawSlicesSeparators:contextRef withViewSize:viewSize andCenter:center];
 	}
 	
@@ -135,20 +139,20 @@
 
 - (void)drawSlices:(NSUInteger)slicesCount
          completed:(NSUInteger)slicesCompleted
-            radius:(CGFloat)circleRadius
+            radius:(double)circleRadius
             center:(CGPoint)center
          inContext:(CGContextRef)context
 {
     BOOL cgClockwise = !self.clockwise;
     NSUInteger startingSlice = self.startingSlice -1;
     
-	if (!self.theme.sliceDividerHidden && self.theme.sliceDividerThickness > 0) {
+	if (! self.theme.sliceDividerHidden && self.theme.sliceDividerThickness > 0) {
 		// Draw one arc at a time.
         
-        CGFloat sliceAngle = (2 * M_PI ) / slicesCount;
+        double sliceAngle = (2 * M_PI ) / slicesCount;
         for (int i =0; i < slicesCount; i++) {
-            CGFloat startValue = (sliceAngle * i) + sliceAngle * startingSlice;
-            CGFloat startAngle, endAngle;
+            double startValue = (sliceAngle * i) + sliceAngle * startingSlice;
+            double startAngle, endAngle;
             if (self.clockwise) {
                 startAngle = - M_PI_2 + startValue;
 				endAngle = startAngle + sliceAngle;
@@ -174,10 +178,10 @@
 		// Draw just two arcs, one for the completed slices and one for the
 		// uncompleted ones.
 		
-        CGFloat originAngle, endAngle;
-		CGFloat sliceAngle = (2 * M_PI) / self.progressTotal;
-		CGFloat startingAngle = sliceAngle * startingSlice;
-		CGFloat progressAngle = sliceAngle * self.progressCounter;
+        double originAngle, endAngle;
+		double sliceAngle = (2 * M_PI) / self.progressTotal;
+		double startingAngle = sliceAngle * startingSlice;
+		double progressAngle = sliceAngle * self.progressCounter;
 		
 		if (self.progressCounter == 0) {
 			originAngle = -M_PI_2;
@@ -207,8 +211,7 @@
 			// Incompleted slices
 			CGContextBeginPath(context);
 			CGContextMoveToPoint(context, center.x, center.y);
-			CGFloat startAngle = endAngle;
-			endAngle = originAngle;
+			double startAngle = endAngle;
 			CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
 			color = self.theme.incompletedColor.CGColor;
 			CGContextSetFillColorWithColor(context, color);
@@ -220,38 +223,35 @@
 - (void)drawSlicesSeparators:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
 	int outerDiameter = viewSize.width;
-    float outerRadius = outerDiameter / 2 - self.internalPadding;
-    int innerDiameter = outerDiameter - self.theme.thickness;
-    float innerRadius = innerDiameter / 2;
-    
-    if (! self.theme.sliceDividerHidden) {
-        int sliceCount = self.progressTotal;
-        float sliceAngle = (2 * M_PI) / sliceCount;
-        CGContextSetLineWidth(contextRef, self.theme.sliceDividerThickness);
-        CGContextSetStrokeColorWithColor(contextRef, self.theme.sliceDividerColor.CGColor);
-        for (int i = 0; i < sliceCount; i++) {
-            double startAngle = sliceAngle * i - M_PI_2;
-			double endAngle = sliceAngle * (i + 1) - M_PI_2;
-            
-			CGContextBeginPath(contextRef);
-			CGContextMoveToPoint(contextRef, center.x, center.y);
-			
-			// Draw the outer arc
-			CGContextAddArc(contextRef, center.x, center.y, outerRadius, startAngle, endAngle, 0);
-			// Draw the inner arc. The separator line is drawn automatically when moving from
-			// the point where the outer arc ended to the point where the inner arc starts.
-			CGContextAddArc(contextRef, center.x, center.y, innerRadius, endAngle, startAngle, 1);
-			
-			CGContextSetStrokeColorWithColor(contextRef, self.theme.sliceDividerColor.CGColor);
-			CGContextStrokePath(contextRef);
-        }
-    }
+    double outerRadius = outerDiameter / 2.0 - self.internalPadding;
+    int innerDiameter = (outerDiameter - self.theme.thickness);
+    double innerRadius = innerDiameter / 2.0;
+	int sliceCount = self.progressTotal;
+	double sliceAngle = (2 * M_PI) / sliceCount;
+	
+	CGContextSetLineWidth(contextRef, self.theme.sliceDividerThickness);
+	CGContextSetStrokeColorWithColor(contextRef, self.theme.sliceDividerColor.CGColor);
+	CGContextMoveToPoint(contextRef, center.x, center.y);
+	
+	for (int i = 0; i < sliceCount; i++) {
+		CGContextBeginPath(contextRef);
+		
+		double startAngle = sliceAngle * i - M_PI_2;
+		double endAngle = sliceAngle * (i + 1) - M_PI_2;
+
+		// Draw the outer slice arc clockwise.
+		CGContextAddArc(contextRef, center.x, center.y, outerRadius, startAngle, endAngle, 0);
+		// Draw the inner slice arc in the opposite direction. The separator line is drawn automatically when moving
+		// from the point where the outer arc ended to the point where the inner arc starts.
+		CGContextAddArc(contextRef, center.x, center.y, innerRadius, endAngle, startAngle, 1);
+		CGContextStrokePath(contextRef);
+	}
 }
 
 - (void)drawCenter:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
 	int innerDiameter = viewSize.width - self.theme.thickness;
-    float innerRadius = innerDiameter / 2;
+    double innerRadius = innerDiameter / 2.0;
 	
 	CGContextSetLineWidth(contextRef, self.theme.thickness);
 	CGRect innerCircle = CGRectMake(center.x - innerRadius, center.y - innerRadius,

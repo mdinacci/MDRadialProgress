@@ -211,7 +211,7 @@
 	y += 130;
 	
 //	Example 11 ========================================================================
-	label = [self labelAtY:y andText:@"Clear incompletedColor: "];
+	label = [self labelAtY:y andText:@"No progress, show dividers anyway"];
 	[scrollView addSubview:label];
 	
 	frame = CGRectMake(x, y, 100, 100);
@@ -219,8 +219,10 @@
 	radialView11.progressTotal = 10;
     radialView11.progressCounter = 0;
 	radialView11.theme.incompletedColor = [UIColor clearColor];
-	radialView11.theme.centerColor = [UIColor redColor];
-    radialView11.theme.sliceDividerHidden = YES;
+	radialView11.theme.centerColor = [UIColor whiteColor];
+	radialView11.theme.sliceDividerColor = [UIColor grayColor];
+	radialView11.theme.sliceDividerThickness = 2;
+	radialView11.theme.sliceDividerHidden = NO;
 	radialView11.label.hidden = YES;
 	[scrollView addSubview:radialView11];
 }
