@@ -1,7 +1,13 @@
+1.0.4
+
+Reworked issue #12 fix that caused issue #13 on Github. 
+Improved the rendering precision by switching to double values.
+
 1.0.3
 
-Fixed issue #12 on Github that caused an "eclipse" effect when the incompletedColor was the same
-color as the background color and progressCounter was zero.
+Fixed issue #12 on Github that caused an "eclipse" effect when the 
+incompletedColor was the same color as the background color and 
+progressCounter was zero.
 
 1.0.2
 
