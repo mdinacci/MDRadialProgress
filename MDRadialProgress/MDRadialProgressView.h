@@ -37,4 +37,7 @@ static NSString *keyThickness = @"theme.thickness";
 // The label shown in the view's center.
 @property (strong, nonatomic) MDRadialProgressLabel *label;
 
+// The block that is used to update the label text when the progress changes.
+@property (nonatomic, copy) NSString *(^labelTextBlock)(MDRadialProgressView *progressView);
+
 @end
