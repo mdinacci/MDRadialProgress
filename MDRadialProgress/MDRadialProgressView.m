@@ -281,8 +281,7 @@
 
     if (self.labelTextBlock) {
         text = self.labelTextBlock(self);
-    }
-    else {
+    } else {
         float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
         text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
     }
