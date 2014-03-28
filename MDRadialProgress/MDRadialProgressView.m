@@ -49,7 +49,8 @@
     [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [self removeObserver:self.label forKeyPath:keyThickness];
 }
 
