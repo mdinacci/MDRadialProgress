@@ -1,3 +1,7 @@
+1.0.5
+
+Central label can be customises by passing a block. Thanks to @PocketScientists for the pull request.
+
 1.0.4
 
 Reworked issue #12 fix that caused issue #13 on Github. 

@@ -32,10 +32,13 @@ or copy `MDRadialProgress.{h|m}`, `MDRadialProgressLabel.{h|m}`, `MDRadialProgre
 
 There is an extensive example included in `ViewController.m`. Tweak it and run it to experiment. 
 
+See the RELEASE_NOTES for changes between versions.
+
 Version 1.0 has introduced the concept of *theme* in order to make the customisation of many progress views
 simpler. If for example you have a table where in every cell you have a MDRadialProgressView, now you
 can create a theme with the appearance you like and apply it to all views, instead of customising
 each view singularly.
+
 
 ## Localization
 The component is fully accessible and it uses two labels that can be used by
