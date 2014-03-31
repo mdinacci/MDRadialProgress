@@ -1,6 +1,8 @@
 1.0.5
 
-Central label can be customises by passing a block. Thanks to @PocketScientists for the pull request.
+Central label can be customised by passing a block. Thanks to @PocketScientists for the pull request.
+
+@property (nonatomic, copy) NSString *(^labelTextBlock)(MDRadialProgressView *progressView);
 
 1.0.4
 
