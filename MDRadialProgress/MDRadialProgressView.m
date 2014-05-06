@@ -44,14 +44,14 @@
     return self;
 }
 
-- (void)awakeFromNib
+- (id)initWithCoder:(NSCoder *)decoder
 {
-    [self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
-}
-
-- (void)dealloc
-{
-    [self removeObserver:self.label forKeyPath:keyThickness];
+	self = [super initWithCoder:decoder];
+    if (self) {
+		[self internalInitWithTheme:[MDRadialProgressTheme standardTheme]];
+    }
+	
+	return self;
 }
 
 - (void)internalInitWithTheme:(MDRadialProgressTheme *)theme
@@ -81,6 +81,11 @@
 	
 	// Register the progress label for changes in the thickness so that it can be repositioned.
 	[self addObserver:self.label forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)dealloc
+{
+    [self removeObserver:self.label forKeyPath:keyThickness];
 }
 
 #pragma mark - Setters
@@ -227,7 +232,7 @@
     double outerRadius = outerDiameter / 2.0 - self.internalPadding;
     int innerDiameter = (outerDiameter - self.theme.thickness);
     double innerRadius = innerDiameter / 2.0;
-	int sliceCount = self.progressTotal;
+	int sliceCount = (int)self.progressTotal;
 	double sliceAngle = (2 * M_PI) / sliceCount;
 	
 	CGContextSetLineWidth(contextRef, self.theme.sliceDividerThickness);
@@ -239,7 +244,7 @@
 		
 		double startAngle = sliceAngle * i - M_PI_2;
 		double endAngle = sliceAngle * (i + 1) - M_PI_2;
-
+		
 		// Draw the outer slice arc clockwise.
 		CGContextAddArc(contextRef, center.x, center.y, outerRadius, startAngle, endAngle, 0);
 		// Draw the inner slice arc in the opposite direction. The separator line is drawn automatically when moving
@@ -276,16 +281,16 @@
 - (void)notifyProgressChange
 {
 	// Update the accessibilityValue and the progressSummaryView text.
-
+	
     NSString *text;
-
+	
     if (self.labelTextBlock) {
         text = self.labelTextBlock(self);
     } else {
         float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
         text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
     }
-
+	
 	self.accessibilityValue = text;
 	self.label.text = text;
 	

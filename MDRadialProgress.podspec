@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.screenshots  = "https://raw.github.com/mdinacci/MDRadialProgress/master/screenshot.png"
   s.license      = 'BSD'
   s.author       = { "Marco Dinacci" => "marco.dinacci@gmail.com" }
-  s.source       = { :git => "https://github.com/mdinacci/MDRadialProgress.git", :tag => "1.0.5" }
+  s.source       = { :git => "https://github.com/mdinacci/MDRadialProgress.git", :tag => "1.0.6" }
   s.platform     = :ios, '6.0'
   s.source_files = 'MDRadialProgress/MDRadialProgress*.{h,m}'
   s.framework  = 'QuartzCore'

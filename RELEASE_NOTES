@@ -1,3 +1,7 @@
+1.0.6
+
+Replaced awakeFromNib with initWithCoder.
+
 1.0.5
 
 Central label can be customised by passing a block. Thanks to @PocketScientists for the pull request.
