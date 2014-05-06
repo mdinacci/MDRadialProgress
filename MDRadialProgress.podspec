@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MDRadialProgress"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "MDRadialProgress is a custom UIView to display progress in discrete steps."
   s.homepage     = "http://infinityrealm.com/products/mdradialprogress/"
   s.screenshots  = "https://raw.github.com/mdinacci/MDRadialProgress/master/screenshot.png"
