@@ -126,7 +126,7 @@
 	
 	// Draw the slices if there's at least some progress or if, even without progress, the slice dividers are visible.
 	if (self.progressCounter > 0 || (self.progressCounter == 0 && ! self.theme.sliceDividerHidden)) {
-		double radius = viewSize.width / 2 - self.internalPadding;
+		double radius = MIN(viewSize.width, viewSize.height) / 2 - self.internalPadding;
 		[self drawSlices:self.progressTotal
 			   completed:self.progressCounter
 				  radius:radius
@@ -228,7 +228,7 @@
 
 - (void)drawSlicesSeparators:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
-	int outerDiameter = viewSize.width;
+	int outerDiameter = MIN(viewSize.width, viewSize.height);
     double outerRadius = outerDiameter / 2.0 - self.internalPadding;
     int innerDiameter = (outerDiameter - self.theme.thickness);
     double innerRadius = innerDiameter / 2.0;
@@ -256,7 +256,7 @@
 
 - (void)drawCenter:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
-	int innerDiameter = viewSize.width - self.theme.thickness;
+	int innerDiameter = MIN(viewSize.width, viewSize.height) - self.theme.thickness;
     double innerRadius = innerDiameter / 2.0;
 	
 	CGContextSetLineWidth(contextRef, self.theme.thickness);

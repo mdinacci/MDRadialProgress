@@ -38,9 +38,9 @@
 		// Reduce the bounds according to the thickness declared in the theme.
 		// This may change later, see observeValueForKeyPath...
 		CGFloat offset = theme.thickness;
-		CGFloat width = frame.size.width - offset;
-		CGFloat height = frame.size.height - offset;
-		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset, width, height);
+        
+        CGFloat sideDimension = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame)) - offset;
+		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset, sideDimension, sideDimension);
 		self.bounds = adjustedFrame;
 		
 		// Customise appearance
@@ -89,9 +89,10 @@
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		CGFloat offset = view.theme.thickness;
 		CGRect frame = view.frame;
+        CGFloat sideDimension = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame)) - offset;
 		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset,
-										  frame.size.width - offset, frame.size.height - offset);
-		
+										  sideDimension, sideDimension);
+
 		self.bounds = adjustedFrame;
 		[self setNeedsLayout];
 	}
