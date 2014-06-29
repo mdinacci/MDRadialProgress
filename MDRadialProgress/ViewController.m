@@ -40,7 +40,6 @@
     [super viewDidLoad];
 	
 	UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-	scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, 800);
 	[self.view addSubview:scrollView];
 	
 	self.view.backgroundColor = [UIColor whiteColor];
@@ -225,6 +224,39 @@
 	radialView11.theme.sliceDividerHidden = NO;
 	radialView11.label.hidden = YES;
 	[scrollView addSubview:radialView11];
+
+    y += 130;
+
+    //	Example 9 ========================================================================
+	label = [self labelAtY:y andText:@"Non square progress"];
+	[scrollView addSubview:label];
+
+    // Height > width
+	y += 40;
+    x = (CGRectGetWidth(self.view.frame) - 160) / 2;
+	frame = CGRectMake(x, y, 50, 100);
+    MDRadialProgressView *radialView12 = [[MDRadialProgressView alloc] initWithFrame:frame];
+	radialView12.progressTotal = 10;
+    radialView12.progressCounter = 4;
+	radialView12.theme = newTheme;
+    radialView12.layer.borderColor = [UIColor blackColor].CGColor;
+    radialView12.layer.borderWidth = 2.0;
+	[scrollView addSubview:radialView12];
+
+    // Height > width
+	y += 40;
+    x = CGRectGetMaxX(radialView12.frame) + 10;
+	frame = CGRectMake(x, y, 100, 50);
+    MDRadialProgressView *radialView13 = [[MDRadialProgressView alloc] initWithFrame:frame];
+	radialView13.progressTotal = 10;
+    radialView13.progressCounter = 4;
+	radialView13.theme = newTheme;
+    radialView13.layer.borderColor = [UIColor blackColor].CGColor;
+    radialView13.layer.borderWidth = 2.0;
+	[scrollView addSubview:radialView13];
+
+    // Update content size
+    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, CGRectGetMaxY(radialView13.frame) + 20);
 }
 
 - (void)didReceiveMemoryWarning
