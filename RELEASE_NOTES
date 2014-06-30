@@ -1,3 +1,7 @@
+1.0.7
+
+Patch contribuetd by @nicolasgoutaland that fixes a problem when the component has a non-square size.
+
 1.0.6
 
 Replaced awakeFromNib with initWithCoder.
