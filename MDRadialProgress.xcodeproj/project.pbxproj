@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A952F97E1802B76600CFED8A /* MDRadialProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A952F97D1802B76600CFED8A /* MDRadialProgressLabel.m */; };
-		A952F9811802BDD500CFED8A /* MDRadialProgressTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = A952F9801802BDD500CFED8A /* MDRadialProgressTheme.m */; };
+		3EE820D2197556E500A6A314 /* MDRadialProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820CD197556E500A6A314 /* MDRadialProgressLabel.m */; };
+		3EE820D3197556E500A6A314 /* MDRadialProgressTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820CF197556E500A6A314 /* MDRadialProgressTheme.m */; };
+		3EE820D4197556E500A6A314 /* MDRadialProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820D1197556E500A6A314 /* MDRadialProgressView.m */; };
 		A9A38A491700C5CA00684698 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A481700C5CA00684698 /* UIKit.framework */; };
 		A9A38A4B1700C5CA00684698 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A4A1700C5CA00684698 /* Foundation.framework */; };
 		A9A38A4D1700C5CA00684698 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A4C1700C5CA00684698 /* CoreGraphics.framework */; };
@@ -19,14 +20,15 @@
 		A9A38A5D1700C5CB00684698 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A38A5C1700C5CB00684698 /* Default@2x.png */; };
 		A9A38A5F1700C5CB00684698 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A38A5E1700C5CB00684698 /* Default-568h@2x.png */; };
 		A9A38A621700C5CB00684698 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A38A611700C5CB00684698 /* ViewController.m */; };
-		A9A38A6D1700C64E00684698 /* MDRadialProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A952F97C1802B76600CFED8A /* MDRadialProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressLabel.h; sourceTree = "<group>"; };
-		A952F97D1802B76600CFED8A /* MDRadialProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressLabel.m; sourceTree = "<group>"; };
-		A952F97F1802BDD500CFED8A /* MDRadialProgressTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressTheme.h; sourceTree = "<group>"; };
-		A952F9801802BDD500CFED8A /* MDRadialProgressTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressTheme.m; sourceTree = "<group>"; };
+		3EE820CC197556E500A6A314 /* MDRadialProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressLabel.h; sourceTree = "<group>"; };
+		3EE820CD197556E500A6A314 /* MDRadialProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressLabel.m; sourceTree = "<group>"; };
+		3EE820CE197556E500A6A314 /* MDRadialProgressTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressTheme.h; sourceTree = "<group>"; };
+		3EE820CF197556E500A6A314 /* MDRadialProgressTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressTheme.m; sourceTree = "<group>"; };
+		3EE820D0197556E500A6A314 /* MDRadialProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressView.h; sourceTree = "<group>"; };
+		3EE820D1197556E500A6A314 /* MDRadialProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressView.m; sourceTree = "<group>"; };
 		A9A38A451700C5CA00684698 /* MDRadialProgress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MDRadialProgress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A38A481700C5CA00684698 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9A38A4A1700C5CA00684698 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -42,8 +44,6 @@
 		A9A38A5E1700C5CB00684698 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A9A38A601700C5CB00684698 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A9A38A611700C5CB00684698 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A9A38A6B1700C64E00684698 /* MDRadialProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressView.h; sourceTree = "<group>"; };
-		A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +60,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EE820CB197556E500A6A314 /* MDRadialProgress */ = {
+			isa = PBXGroup;
+			children = (
+				3EE820CC197556E500A6A314 /* MDRadialProgressLabel.h */,
+				3EE820CD197556E500A6A314 /* MDRadialProgressLabel.m */,
+				3EE820CE197556E500A6A314 /* MDRadialProgressTheme.h */,
+				3EE820CF197556E500A6A314 /* MDRadialProgressTheme.m */,
+				3EE820D0197556E500A6A314 /* MDRadialProgressView.h */,
+				3EE820D1197556E500A6A314 /* MDRadialProgressView.m */,
+			);
+			path = MDRadialProgress;
+			sourceTree = "<group>";
+		};
 		A94F9CC1180541E200ECE7DC /* Examples */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,19 +82,6 @@
 				A9A38A611700C5CB00684698 /* ViewController.m */,
 			);
 			name = Examples;
-			sourceTree = "<group>";
-		};
-		A94F9CC21805420600ECE7DC /* MDRadialProgress */ = {
-			isa = PBXGroup;
-			children = (
-				A9A38A6B1700C64E00684698 /* MDRadialProgressView.h */,
-				A9A38A6C1700C64E00684698 /* MDRadialProgressView.m */,
-				A952F97F1802BDD500CFED8A /* MDRadialProgressTheme.h */,
-				A952F9801802BDD500CFED8A /* MDRadialProgressTheme.m */,
-				A952F97C1802B76600CFED8A /* MDRadialProgressLabel.h */,
-				A952F97D1802B76600CFED8A /* MDRadialProgressLabel.m */,
-			);
-			name = MDRadialProgress;
 			sourceTree = "<group>";
 		};
 		A9A38A3C1700C5CA00684698 = {
@@ -114,8 +114,8 @@
 		A9A38A4E1700C5CA00684698 /* MDRadialProgress */ = {
 			isa = PBXGroup;
 			children = (
+				3EE820CB197556E500A6A314 /* MDRadialProgress */,
 				A94F9CC1180541E200ECE7DC /* Examples */,
-				A94F9CC21805420600ECE7DC /* MDRadialProgress */,
 				A9A38A4F1700C5CA00684698 /* Supporting Files */,
 			);
 			path = MDRadialProgress;
@@ -205,12 +205,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE820D3197556E500A6A314 /* MDRadialProgressTheme.m in Sources */,
 				A9A38A551700C5CA00684698 /* main.m in Sources */,
+				3EE820D2197556E500A6A314 /* MDRadialProgressLabel.m in Sources */,
 				A9A38A591700C5CA00684698 /* AppDelegate.m in Sources */,
-				A952F97E1802B76600CFED8A /* MDRadialProgressLabel.m in Sources */,
 				A9A38A621700C5CB00684698 /* ViewController.m in Sources */,
-				A952F9811802BDD500CFED8A /* MDRadialProgressTheme.m in Sources */,
-				A9A38A6D1700C64E00684698 /* MDRadialProgressView.m in Sources */,
+				3EE820D4197556E500A6A314 /* MDRadialProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
