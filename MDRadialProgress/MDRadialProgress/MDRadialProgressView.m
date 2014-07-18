@@ -276,6 +276,13 @@
 	return [super accessibilityTraits] | UIAccessibilityTraitUpdatesFrequently;
 }
 
+# pragma mark - Setters
+- (void)setTheme:(MDRadialProgressTheme *)aTheme
+{
+    _theme = aTheme;
+    [self setNeedsDisplay];
+}
+
 # pragma mark - Notifications
 
 - (void)notifyProgressChange
