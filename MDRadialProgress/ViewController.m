@@ -254,14 +254,14 @@
 	y += 130;
 	
 	// Example 10 =======================================================================
-	label = [self labelAtY:y andText:@"Incomplete arc with no progress: "];
+	label = [self labelAtY:y andText:@"Incomplete arc drawn even with no progress: "];
 	[scrollView addSubview:label];
 	
     frame = CGRectMake(x, y, 150, 150);
     MDRadialProgressView *radialView14 = [self progressViewWithFrame:frame];
 	
 	radialView14.progressTotal = 10;
-    radialView14.progressCounter = 3;
+    radialView14.progressCounter = 0;
 	radialView14.label.hidden = YES;
 	radialView14.clockwise = YES;
 	radialView14.theme.centerColor = [UIColor orangeColor];
@@ -270,13 +270,12 @@
 	radialView14.theme.completedColor = [UIColor blueColor];
 	radialView14.theme.incompletedColor = [UIColor grayColor];
 	radialView14.theme.sliceDividerThickness = 0;
-	radialView14.theme.drawIncompleteArcIfNoProgress = YES; // default
+	radialView14.theme.drawIncompleteArcIfNoProgress = YES;
     
 	[scrollView addSubview:radialView14];
-	//	Example 7 ========================================================================
+	//	Example 10 ========================================================================
 	
 	y += 130;
-
 	
     // Update content size
     scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, CGRectGetMaxY(radialView14.frame) + 20);
