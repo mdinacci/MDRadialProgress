@@ -37,6 +37,10 @@ static const NSString *STANDARD_THEME = @"standard";
 // Whether the slice division is hidden or not.
 @property (assign, nonatomic) BOOL sliceDividerHidden;
 
+// Draw the incomplete arc even if there is no progress, defaults to NO to be backward compatible.
+// Since 1.1.0
+@property (assign, nonatomic) BOOL drawIncompleteArcIfNoProgress;
+
 // Regulates how far apart the slice are when sliceDividerHidden is set to YES.
 @property (assign, nonatomic) NSUInteger sliceDividerThickness;
 

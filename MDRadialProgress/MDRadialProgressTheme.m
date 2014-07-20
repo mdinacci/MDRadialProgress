@@ -38,6 +38,7 @@ static const int kMaxFontSize = 64;
 		self.thickness = 15;
 		self.sliceDividerHidden = NO;
 		self.sliceDividerThickness = 2;
+		self.drawIncompleteArcIfNoProgress = NO;
 		
 		// Label
 		self.labelColor = [UIColor blackColor];

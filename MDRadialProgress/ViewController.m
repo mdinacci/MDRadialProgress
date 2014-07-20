@@ -228,13 +228,11 @@
     y += 130;
 
     //	Example 9 ========================================================================
-	label = [self labelAtY:y andText:@"Non square progress"];
+	label = [self labelAtY:y andText:@"Non-square view"];
 	[scrollView addSubview:label];
 
     // Height > width
-	y += 40;
-    x = (CGRectGetWidth(self.view.frame) - 160) / 2;
-	frame = CGRectMake(x, y, 50, 100);
+	frame = CGRectMake(x-50, y, 50, 100);
     MDRadialProgressView *radialView12 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	radialView12.progressTotal = 10;
     radialView12.progressCounter = 4;
@@ -244,8 +242,6 @@
 	[scrollView addSubview:radialView12];
 
     // Height > width
-	y += 40;
-    x = CGRectGetMaxX(radialView12.frame) + 10;
 	frame = CGRectMake(x, y, 100, 50);
     MDRadialProgressView *radialView13 = [[MDRadialProgressView alloc] initWithFrame:frame];
 	radialView13.progressTotal = 10;
@@ -255,8 +251,35 @@
     radialView13.layer.borderWidth = 2.0;
 	[scrollView addSubview:radialView13];
 
+	y += 130;
+	
+	// Example 10 =======================================================================
+	label = [self labelAtY:y andText:@"Incomplete arc with no progress: "];
+	[scrollView addSubview:label];
+	
+    frame = CGRectMake(x, y, 150, 150);
+    MDRadialProgressView *radialView14 = [self progressViewWithFrame:frame];
+	
+	radialView14.progressTotal = 10;
+    radialView14.progressCounter = 3;
+	radialView14.label.hidden = YES;
+	radialView14.clockwise = YES;
+	radialView14.theme.centerColor = [UIColor orangeColor];
+    radialView14.theme.thickness = 10;
+	radialView14.theme.sliceDividerHidden = YES;
+	radialView14.theme.completedColor = [UIColor blueColor];
+	radialView14.theme.incompletedColor = [UIColor grayColor];
+	radialView14.theme.sliceDividerThickness = 0;
+	radialView14.theme.drawIncompleteArcIfNoProgress = YES; // default
+    
+	[scrollView addSubview:radialView14];
+	//	Example 7 ========================================================================
+	
+	y += 130;
+
+	
     // Update content size
-    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, CGRectGetMaxY(radialView13.frame) + 20);
+    scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, CGRectGetMaxY(radialView14.frame) + 20);
 }
 
 - (void)didReceiveMemoryWarning

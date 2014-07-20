@@ -122,23 +122,14 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (self.progressTotal <= 0) {
-        return;
-    }
-    
 	CGContextRef contextRef = UIGraphicsGetCurrentContext();
 	CGSize viewSize = self.bounds.size;
 	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
 	
-	// Draw the slices if there's at least some progress or if, even without progress, the slice dividers are visible.
-	if (self.progressCounter > 0 || (self.progressCounter == 0 && ! self.theme.sliceDividerHidden)) {
-		double radius = MIN(viewSize.width, viewSize.height) / 2 - self.internalPadding;
-		[self drawSlices:self.progressTotal
-			   completed:self.progressCounter
-				  radius:radius
-				  center:center
-			   inContext:contextRef];
-	}
+	// Always attempt to draw, even if there is no progress because one might want to display the empty progress.
+	// See issue #17 https://github.com/mdinacci/MDRadialProgress/issues/17
+	double radius = MIN(viewSize.width, viewSize.height) / 2 - self.internalPadding;
+	[self drawSlicesWithRadius:radius center:center inContext:contextRef];
 	
 	// Draw the slice separators, unless the sliceDividerHidden property is true.
 	if (! self.theme.sliceDividerHidden) {
@@ -149,20 +140,30 @@
 	[self drawCenter:contextRef withViewSize:viewSize andCenter:center];
 }
 
-- (void)drawSlices:(NSUInteger)slicesCount
-         completed:(NSUInteger)slicesCompleted
-            radius:(double)circleRadius
-            center:(CGPoint)center
-         inContext:(CGContextRef)context
+- (void)drawSlicesWithRadius:(double)circleRadius
+					  center:(CGPoint)center
+				   inContext:(CGContextRef)context
 {
     BOOL cgClockwise = !self.clockwise;
     NSUInteger startingSlice = self.startingSlice -1;
     
+	// If there's no progress, just draw the incomplete arc.
+	if (self.progressCounter == 0 && self.theme.drawIncompleteArcIfNoProgress) {
+		[self drawArcInContext:context
+						center:center
+						radius:circleRadius
+					startAngle:0
+					  endAngle:M_PI * 2
+						 color:self.theme.incompletedColor.CGColor
+					 clockwise:cgClockwise];
+		return;
+	}
+	
 	if (! self.theme.sliceDividerHidden && self.theme.sliceDividerThickness > 0) {
 		// Draw one arc at a time.
         
-        double sliceAngle = (2 * M_PI ) / slicesCount;
-        for (int i =0; i < slicesCount; i++) {
+        double sliceAngle = (2 * M_PI ) / self.progressTotal;
+        for (int i =0; i < self.progressTotal; i++) {
             double startValue = (sliceAngle * i) + sliceAngle * startingSlice;
             double startAngle, endAngle;
             if (self.clockwise) {
@@ -180,14 +181,14 @@
             
             CGColorRef color = self.theme.incompletedColor.CGColor;
             
-            if (i < slicesCompleted) {
+            if (i < self.progressCounter) {
                 color = self.theme.completedColor.CGColor;
             }
             CGContextSetFillColorWithColor(context, color);
             CGContextFillPath(context);
         }
     } else {
-		// Draw just two arcs, one for the completed slices and one for the
+		// Draw just two arcs, one for the completed slices (if any) and one for the
 		// uncompleted ones.
 		
         double originAngle, endAngle;
@@ -195,41 +196,47 @@
 		double startingAngle = sliceAngle * startingSlice;
 		double progressAngle = sliceAngle * self.progressCounter;
 		
-		if (self.progressCounter == 0) {
-			originAngle = -M_PI_2;
-			endAngle = originAngle + 2 * M_PI;
+		if (self.clockwise) {
+			originAngle = -M_PI_2 + startingAngle;
+			endAngle = originAngle + progressAngle;
 		} else {
-			if (self.clockwise) {
-				originAngle = -M_PI_2 + startingAngle;
-				endAngle = originAngle + progressAngle;
-			} else {
-				originAngle = -M_PI_2 - startingAngle;
-				endAngle = originAngle - progressAngle;
-			}
+			originAngle = -M_PI_2 - startingAngle;
+			endAngle = originAngle - progressAngle;
 		}
 		
 		// Draw the arcs grouped instead of individually to avoid
 		// artifacts between one slice and another.
 		
 		// Completed slices.
-		CGContextBeginPath(context);
-		CGContextMoveToPoint(context, center.x, center.y);
-		CGContextAddArc(context, center.x, center.y, circleRadius, originAngle, endAngle, cgClockwise);
-		CGColorRef color = self.theme.completedColor.CGColor;
-		CGContextSetFillColorWithColor(context, color);
-		CGContextFillPath(context);
+		[self drawArcInContext:context
+						center:center
+						radius:circleRadius
+					startAngle:originAngle
+					  endAngle:endAngle
+						 color:self.theme.completedColor.CGColor
+					 clockwise:cgClockwise];
 		
 		if (self.progressCounter < self.progressTotal) {
 			// Incompleted slices
-			CGContextBeginPath(context);
-			CGContextMoveToPoint(context, center.x, center.y);
-			double startAngle = endAngle;
-			CGContextAddArc(context, center.x, center.y, circleRadius, startAngle, originAngle, cgClockwise);
-			color = self.theme.incompletedColor.CGColor;
-			CGContextSetFillColorWithColor(context, color);
-			CGContextFillPath(context);
+			[self drawArcInContext:context
+							center:center
+							radius:circleRadius
+						startAngle:endAngle
+						  endAngle:originAngle
+							 color:self.theme.incompletedColor.CGColor
+						 clockwise:cgClockwise];
 		}
 	}
+}
+
+- (void)drawArcInContext:(CGContextRef)context center:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle
+				endAngle:(CGFloat)endAngle color:(CGColorRef)color clockwise:(BOOL)cgClockwise
+{
+	CGContextBeginPath(context);
+	CGContextMoveToPoint(context, center.x, center.y);
+	CGContextAddArc(context, center.x, center.y, radius, startAngle, endAngle, cgClockwise);
+	CGContextSetFillColorWithColor(context, color);
+	CGContextFillPath(context);
 }
 
 - (void)drawSlicesSeparators:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
