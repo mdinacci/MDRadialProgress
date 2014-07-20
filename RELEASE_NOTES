@@ -1,3 +1,8 @@
+1.1.0
+
+Added setTheme to MDRadialProgressView in order to refresh the view when a new theme is assigned.
+Added the ability to draw the incompleted arc if the progress counter is set to zero.
+
 1.0.7
 
 Patch contribuetd by @nicolasgoutaland that fixes a problem when the component has a non-square size.
