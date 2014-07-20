@@ -90,6 +90,12 @@
 
 #pragma mark - Setters
 
+- (void)setTheme:(MDRadialProgressTheme *)aTheme
+{
+	_theme = aTheme;
+	[self setNeedsDisplay];
+}
+
 - (void)setProgressCounter:(NSUInteger)progressCounter
 {
 	_progressCounter = progressCounter;
