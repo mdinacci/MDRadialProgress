@@ -243,7 +243,7 @@
 {
 	int outerDiameter = MIN(viewSize.width, viewSize.height);
     double outerRadius = outerDiameter / 2.0 - self.internalPadding;
-    int innerDiameter = (outerDiameter - self.theme.thickness);
+    int innerDiameter = (outerDiameter - self.theme.thickness * 2);
     double innerRadius = innerDiameter / 2.0;
 	int sliceCount = (int)self.progressTotal;
 	double sliceAngle = (2 * M_PI) / sliceCount;
@@ -269,7 +269,7 @@
 
 - (void)drawCenter:(CGContextRef)contextRef withViewSize:(CGSize)viewSize andCenter:(CGPoint)center
 {
-	int innerDiameter = MIN(viewSize.width, viewSize.height) - self.theme.thickness;
+	int innerDiameter = MIN(viewSize.width, viewSize.height) - self.theme.thickness * 2;
     double innerRadius = innerDiameter / 2.0;
 	
 	CGContextSetLineWidth(contextRef, self.theme.thickness);
