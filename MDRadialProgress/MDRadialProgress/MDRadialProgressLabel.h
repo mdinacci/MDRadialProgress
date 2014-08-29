@@ -20,4 +20,6 @@
 // Whether the algorithm to autoscale the font size is enabled or not.
 @property (assign, nonatomic) BOOL adjustFontSizeToFitBounds;
 
+@property (strong, nonatomic) MDRadialProgressTheme *theme;
+
 @end

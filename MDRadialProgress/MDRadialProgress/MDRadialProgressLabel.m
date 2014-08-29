@@ -34,26 +34,14 @@
 		// Center it in the frame.
 		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
 		self.center = center;
-		
-		// Reduce the bounds according to the thickness declared in the theme.
-		// This may change later, see observeValueForKeyPath...
-		CGFloat offset = theme.thickness;
-        
-        CGFloat sideDimension = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame)) - offset;
-		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset, sideDimension, sideDimension);
-		self.bounds = adjustedFrame;
+
+		self.theme = theme;
 		
 		// Customise appearance
-		self.font = theme.font;
 		self.textAlignment = UITextAlignmentCenter;
-		self.textColor = theme.labelColor;
 		self.pointSizeToWidthFactor = 0.5;
 		self.adjustFontSizeToFitBounds = YES;
-		if (theme.dropLabelShadow) {
-			self.shadowColor = theme.labelShadowColor;
-			self.shadowOffset = theme.labelShadowOffset;
-		}
-		
+
 		// Align horizontally and vertically (numberOfLines) the label.
 		self.numberOfLines = 0;
 		self.adjustsFontSizeToFitWidth = YES;
@@ -66,6 +54,33 @@
     return self;
 }
 
+- (void)setTheme:(MDRadialProgressTheme *)theme
+{
+	_theme = theme;
+
+	[self updatedThickness:theme.thickness];
+	[self updatedFontAttributes:theme];
+}
+
+- (void)updatedThickness:(CGFloat)thickness {
+	// Reduce the bounds according to the thickness declared in the theme.
+	// This may change later, see observeValueForKeyPath...
+
+	CGFloat sideDimension = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) - thickness;
+	CGRect adjustedFrame = CGRectMake(self.frame.origin.x + thickness, self.frame.origin.y + thickness, sideDimension, sideDimension);
+
+	self.bounds = adjustedFrame;
+}
+
+- (void)updatedFontAttributes:(MDRadialProgressTheme *)theme {
+	self.font = theme.font;
+	self.textColor = theme.labelColor;
+
+	if (theme.dropLabelShadow) {
+		self.shadowColor = theme.labelShadowColor;
+		self.shadowOffset = theme.labelShadowOffset;
+	}
+}
 
 - (void)drawRect:(CGRect)rect
 {
