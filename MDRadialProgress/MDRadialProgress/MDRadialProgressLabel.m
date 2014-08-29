@@ -102,13 +102,16 @@
 {
 	if ([keyPath isEqualToString:keyThickness]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
-		CGFloat offset = view.theme.thickness;
-		CGRect frame = view.frame;
-        CGFloat sideDimension = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame)) - offset;
-		CGRect adjustedFrame = CGRectMake(frame.origin.x + offset, frame.origin.y + offset,
-										  sideDimension, sideDimension);
-
-		self.bounds = adjustedFrame;
+		[self updatedThickness:view.theme.thickness];
+		[self setNeedsLayout];
+	} else if ([[keyPath lowercaseString] rangeOfString:@"label"].location != NSNotFound || [keyPath isEqualToString:keyFont]) {
+		MDRadialProgressView *view = (MDRadialProgressView *)object;
+		[self updatedFontAttributes:view.theme];
+		[self setNeedsLayout];
+	} else if ([keyPath isEqualToString:keyThickness]) {
+		MDRadialProgressView *view = (MDRadialProgressView *)object;
+		[self updatedThickness:view.theme.thickness];
+		[self updatedFontAttributes:view.theme];
 		[self setNeedsLayout];
 	}
 }
