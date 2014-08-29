@@ -180,9 +180,18 @@
 	radialView5.startingSlice = 3;
     radialView5.theme.sliceDividerHidden = NO;
     radialView5.theme.sliceDividerThickness = 1;
-	radialView5.label.textColor = [UIColor blueColor];
-	radialView5.label.shadowColor = [UIColor clearColor];
-	
+
+	// theme update works both changing the theme or the theme attributes
+	radialView5.theme.labelColor = [UIColor blueColor];
+	radialView5.theme.labelShadowColor = [UIColor clearColor];
+
+	/* Whole theme
+	MDRadialProgressTheme *t = [MDRadialProgressTheme standardTheme];
+	t.labelColor = [UIColor blueColor];
+	t.labelShadowColor = [UIColor clearColor];
+	radialView5.theme = t;
+	*/
+
 	[scrollView addSubview:radialView5];
 	//	Example 6 ========================================================================
 	
