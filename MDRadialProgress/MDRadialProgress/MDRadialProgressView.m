@@ -78,14 +78,19 @@
 	
 	// Important to avoid showing artifacts
 	self.backgroundColor = [UIColor clearColor];
-	
-	// Register the progress label for changes in the thickness so that it can be repositioned.
-	[self addObserver:self.label forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
+
+	// Register the progress label for changes
+	for (NSString *keyToObserve in [self themePropertiesToObserve]) {
+		[self addObserver:self.label forKeyPath:keyToObserve options:NSKeyValueObservingOptionNew context:nil];
+	}
 }
 
 - (void)dealloc
 {
-    [self removeObserver:self.label forKeyPath:keyThickness];
+	for (NSString *observedKey in [self themePropertiesToObserve]) {
+	    [self removeObserver:self.label forKeyPath:observedKey];
+	}
+
 }
 
 #pragma mark - Setters
@@ -93,6 +98,7 @@
 - (void)setTheme:(MDRadialProgressTheme *)aTheme
 {
 	_theme = aTheme;
+
 	[self setNeedsDisplay];
 }
 
@@ -311,6 +317,13 @@
 								  NSLocalizedString(@"Progress changed to:", nil),
 								  self.accessibilityValue];
 	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
+}
+
+- (NSArray *)themePropertiesToObserve
+{
+	return [NSArray arrayWithObjects:
+		keyTheme, keyThickness, keyLabelColor, keyDropLabelShadow,
+		keyLabelShadowColor, keyLabelShadowOffset, keyFont, nil];
 }
 
 @end
