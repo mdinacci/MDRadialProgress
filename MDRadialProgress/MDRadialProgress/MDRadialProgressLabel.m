@@ -85,7 +85,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:keyThickness]) {
+	if ([keyPath isEqualToString:keyThickness] || [keyPath isEqualToString:keyFrame]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		CGFloat offset = view.theme.thickness;
 		CGRect frame = view.frame;

@@ -81,11 +81,13 @@
 	
 	// Register the progress label for changes in the thickness so that it can be repositioned.
 	[self addObserver:self.label forKeyPath:keyThickness options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self.label forKeyPath:keyFrame options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)dealloc
 {
     [self removeObserver:self.label forKeyPath:keyThickness];
+    [self removeObserver:self.label forKeyPath:keyFrame];
 }
 
 #pragma mark - Setters
