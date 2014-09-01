@@ -108,7 +108,7 @@
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		[self updatedFontAttributes:view.theme];
 		[self setNeedsLayout];
-	} else if ([keyPath isEqualToString:keyThickness]) {
+	} else if ([keyPath isEqualToString:keyTheme]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		[self updatedThickness:view.theme.thickness];
 		[self updatedFontAttributes:view.theme];
