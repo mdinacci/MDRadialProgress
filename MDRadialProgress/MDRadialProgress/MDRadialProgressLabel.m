@@ -35,8 +35,9 @@
 		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
 		self.center = center;
 
-		self.theme = theme;
-		
+		[self updatedThickness:theme.thickness];
+		[self updatedFontAttributes:theme];
+
 		// Customise appearance
 		self.textAlignment = UITextAlignmentCenter;
 		self.pointSizeToWidthFactor = 0.5;
@@ -52,14 +53,6 @@
     }
 	
     return self;
-}
-
-- (void)setTheme:(MDRadialProgressTheme *)theme
-{
-	_theme = theme;
-
-	[self updatedThickness:theme.thickness];
-	[self updatedFontAttributes:theme];
 }
 
 - (void)updatedThickness:(CGFloat)thickness {

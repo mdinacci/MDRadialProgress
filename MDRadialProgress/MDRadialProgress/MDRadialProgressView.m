@@ -99,8 +99,6 @@
 {
 	_theme = aTheme;
 
-	self.label.theme = _theme;
-
 	[self setNeedsDisplay];
 }
 
