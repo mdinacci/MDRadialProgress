@@ -125,6 +125,7 @@
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef contextRef = UIGraphicsGetCurrentContext();
+	UIGraphicsPushContext(contextRef);
 	CGSize viewSize = self.bounds.size;
 	CGPoint center = CGPointMake(viewSize.width / 2, viewSize.height / 2);
 	
@@ -140,6 +141,7 @@
 	
     // Draw the center.
 	[self drawCenter:contextRef withViewSize:viewSize andCenter:center];
+	UIGraphicsPopContext();
 }
 
 - (void)drawSlicesWithRadius:(double)circleRadius
