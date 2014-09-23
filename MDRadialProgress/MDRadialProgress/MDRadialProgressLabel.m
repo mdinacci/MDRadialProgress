@@ -30,12 +30,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-		_originalFrame = frame;
-		
 		// Center it in the frame.
 		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
 		self.center = center;
 
+		[self updatedFrame:frame];
 		[self updatedThickness:theme.thickness];
 		[self updatedFontAttributes:theme];
 
@@ -54,6 +53,10 @@
     }
 	
     return self;
+}
+
+- (void)updatedFrame:(CGRect)newFrame {
+	_originalFrame = newFrame;
 }
 
 - (void)updatedThickness:(CGFloat)thickness {
@@ -94,9 +97,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([keyPath isEqualToString:keyThickness] || [keyPath isEqualToString:keyFrame]) {
+	if ([keyPath isEqualToString:keyThickness]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		[self updatedThickness:view.theme.thickness];
+		[self setNeedsLayout];
+	} else if ([keyPath isEqualToString:keyFrame]) {
+		MDRadialProgressView *view = (MDRadialProgressView *)object;
+		[self updatedFrame:view.bounds];
 		[self setNeedsLayout];
 	} else if ([[keyPath lowercaseString] rangeOfString:@"label"].location != NSNotFound || [keyPath isEqualToString:keyFont]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
