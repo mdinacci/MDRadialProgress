@@ -90,7 +90,6 @@
 	for (NSString *observedKey in [self themePropertiesToObserve]) {
 	    [self removeObserver:self.label forKeyPath:observedKey];
 	}
-
 }
 
 #pragma mark - Setters
@@ -322,7 +321,7 @@
 - (NSArray *)themePropertiesToObserve
 {
 	return [NSArray arrayWithObjects:
-		keyTheme, keyThickness, keyLabelColor, keyDropLabelShadow,
+		keyTheme, keyThickness, keyFrame, keyLabelColor, keyDropLabelShadow,
 		keyLabelShadowColor, keyLabelShadowOffset, keyFont, nil];
 }
 

@@ -10,6 +10,7 @@
 
 static NSString *keyTheme = @"theme";
 static NSString *keyThickness = @"theme.thickness";
+static NSString *keyFrame     = @"theme.frame";
 static NSString *keyLabelColor = @"theme.labelColor";
 static NSString *keyDropLabelShadow = @"theme.dropLabelShadow";
 static NSString *keyLabelShadowColor = @"theme.labelShadowColor";
