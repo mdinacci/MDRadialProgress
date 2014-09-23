@@ -30,6 +30,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+		_originalFrame = frame;
 		
 		// Center it in the frame.
 		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
@@ -59,8 +60,8 @@
 	// Reduce the bounds according to the thickness declared in the theme.
 	// This may change later, see observeValueForKeyPath...
 
-	CGFloat sideDimension = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)) - thickness;
-	CGRect adjustedFrame = CGRectMake(self.frame.origin.x + thickness, self.frame.origin.y + thickness, sideDimension, sideDimension);
+	CGFloat sideDimension = MIN(CGRectGetWidth(_originalFrame), CGRectGetHeight(_originalFrame)) - thickness;
+	CGRect adjustedFrame = CGRectMake(_originalFrame.origin.x + thickness, _originalFrame.origin.y + thickness, sideDimension, sideDimension);
 
 	self.bounds = adjustedFrame;
 }
