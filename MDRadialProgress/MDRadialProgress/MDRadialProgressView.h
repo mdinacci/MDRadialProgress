@@ -8,8 +8,14 @@
 #import <UIKit/UIKit.h>
 
 
-static NSString *keyThickness   = @"theme.thickness";
-static NSString *keyFrame       = @"frame";
+static NSString *keyTheme = @"theme";
+static NSString *keyThickness = @"theme.thickness";
+static NSString *keyFrame     = @"frame";
+static NSString *keyLabelColor = @"theme.labelColor";
+static NSString *keyDropLabelShadow = @"theme.dropLabelShadow";
+static NSString *keyLabelShadowColor = @"theme.labelShadowColor";
+static NSString *keyLabelShadowOffset = @"theme.labelShadowOffset";
+static NSString *keyFont = @"theme.font";
 
 @class MDRadialProgressTheme;
 @class MDRadialProgressLabel;
