@@ -1,3 +1,7 @@
+1.2.0
+
+Refactored label property. Bug fixing. All changes contributed by Github user jmnavarro.
+
 1.1.0
 
 Added setTheme to MDRadialProgressView in order to refresh the view when a new theme is assigned.
