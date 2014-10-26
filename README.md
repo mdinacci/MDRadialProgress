@@ -39,6 +39,9 @@ simpler. If for example you have a table where in every cell you have a MDRadial
 can create a theme with the appearance you like and apply it to all views, instead of customising
 each view singularly.
 
+### Dependencies
+Remember to add the QuartzCore framework provided with XCode or simply import it with `#import <QuartzCore/QuartzCore.h>` when you want to use
+the indeterminate mode feature of MDRadialProgress.
 
 ## Localization
 The component is fully accessible and it uses two labels that can be used by
