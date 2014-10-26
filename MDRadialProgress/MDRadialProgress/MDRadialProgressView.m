@@ -19,6 +19,16 @@
 // since it's drawing over the view bounds.
 @property (assign, nonatomic) NSUInteger internalPadding;
 
+// Stores whatever value the progress counter had before the indeterminate mode
+// animation so that after indeterminate mode is over the progress view can return
+// to its previous state.
+@property (assign, nonatomic) NSUInteger progressCounterTemp;
+
+// Stores whatever value the progress label had before the indeterminate mode
+// animation so that after indeterminate mode is over the progress view can return
+// to its previous state.
+@property (strong, nonatomic) MDRadialProgressLabel *labelTemp;
+
 @end
 
 
@@ -67,6 +77,7 @@
 	
 	// Init the progress label, even if not visible.
 	self.label = [[MDRadialProgressLabel alloc] initWithFrame:self.bounds andTheme:self.theme];
+    self.labelTemp = [[MDRadialProgressLabel alloc] initWithFrame:self.bounds andTheme:self.theme];
 	[self addSubview:self.label];
 	
 	// Private properties
@@ -121,6 +132,61 @@
 	dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
     });
+}
+
+- (void)setIsIndeterminateProgress:(BOOL)isIndeterminateProgress
+{
+    _isIndeterminateProgress = isIndeterminateProgress;
+
+    if(_isIndeterminateProgress){
+        self.labelTemp.text = self.label.text;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.label.text = @"";
+        });
+        [self startAnimationForIndeterminateMode];
+    }
+    else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.label.text = self.labelTemp.text;
+        });
+        [self stopAnimationForIndeterminateMode];
+    }
+}
+
+
+# pragma mark - Indeterminate Mode ANimations
+
+- (void) startAnimationForIndeterminateMode
+{
+    // store progress counter value for use at the end of animation
+    self.progressCounterTemp = self.progressCounter;
+    
+    // Change progress counter value to value reasonably suited or indeterminate animation
+    self.progressCounter = (int)(0.18181818 * (float)_progressTotal);
+    
+    // Spin forever .. or at least until we stop it
+    [self runSpinAnimationOnView:self duration:10 rotations:1 repeat:HUGE_VALF];
+}
+
+- (void) stopAnimationForIndeterminateMode
+{
+    // stop spinning animation
+    [self.layer removeAnimationForKey:@"rotationAnimation"];
+    
+    // return progress counter to the vaue it had before the animation
+    self.progressCounter = self.progressCounterTemp;
+}
+
+- (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration rotations:(CGFloat)rotations repeat:(float)repeat;
+{
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * rotations * duration ];
+    rotationAnimation.duration = duration;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = repeat;
+    
+    [view.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 #pragma mark - Drawing
