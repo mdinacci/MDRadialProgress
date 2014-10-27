@@ -61,6 +61,22 @@
 	//	Example 1 ========================================================================
 	
 	y += 80;
+    
+    //	Indeterminate Example  ========================================================================
+    UILabel *indeterminateLabel = [self labelAtY:y andText:@"Indeterminate Progress: "];
+    [scrollView addSubview:indeterminateLabel];
+    
+    CGRect indeterminateFrame = CGRectMake(x, y, 50, 50);
+    MDRadialProgressView *indeterminateRadialView = [self progressViewWithFrame:indeterminateFrame];
+    indeterminateRadialView.progressTotal = 7;
+    indeterminateRadialView.progressCounter = 4;
+    indeterminateRadialView.theme.sliceDividerHidden = YES;
+    [indeterminateRadialView setIsIndeterminateProgress:YES];
+    //[indeterminateRadialView setIsIndeterminateProgress:NO];
+    [scrollView addSubview:indeterminateRadialView];
+    //	Indeterminate Example ========================================================================
+    
+    y += 80;
 	
 	//	Example 2 ========================================================================
 	label = [self labelAtY:y andText:@"Custom theme, shared by all instances: "];

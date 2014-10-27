@@ -34,6 +34,9 @@ static NSString *keyFont = @"theme.font";
 // Whether the progress is drawn clockwise (YES) or anticlockwise (NO)
 @property (assign, nonatomic) BOOL clockwise;
 
+// Whether the progress is in indeterminate mode or not
+@property (assign, nonatomic) BOOL isIndeterminateProgress;
+
 // The index of the slice where the first completed step is.
 @property (assign, nonatomic) NSUInteger startingSlice;
 
