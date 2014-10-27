@@ -10,11 +10,15 @@ It has the following features:
 * Can start progress from any slice, not necessarily from the top.
 * Display a label with the current progress. The label size automatically adapts to the space available. The label can be customised with a block (new in 1.0.5)
 * Themes support for easier customization of multiple views.
+* Indeterminate mode
 * Fully accessible
 * Support iOS 6.0+
 * Original BSD and Commercial Non-Attribution licenses available (you can use it in commercial software).
 
+
 ![Screenshot](screenshot.png "Screenshot")
+
+![Indeterminate mode animation](https://cloud.githubusercontent.com/assets/7833300/4783674/223a17ea-5d31-11e4-8671-3e648e23a7c7.gif "Indeterminate mode")
 
 ## Documentation
 

@@ -10,6 +10,7 @@
 		3EE820D2197556E500A6A314 /* MDRadialProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820CD197556E500A6A314 /* MDRadialProgressLabel.m */; };
 		3EE820D3197556E500A6A314 /* MDRadialProgressTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820CF197556E500A6A314 /* MDRadialProgressTheme.m */; };
 		3EE820D4197556E500A6A314 /* MDRadialProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE820D1197556E500A6A314 /* MDRadialProgressView.m */; };
+		A914027219FE639E0094749E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A914027119FE639E0094749E /* QuartzCore.framework */; };
 		A9A38A491700C5CA00684698 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A481700C5CA00684698 /* UIKit.framework */; };
 		A9A38A4B1700C5CA00684698 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A4A1700C5CA00684698 /* Foundation.framework */; };
 		A9A38A4D1700C5CA00684698 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A38A4C1700C5CA00684698 /* CoreGraphics.framework */; };
@@ -29,6 +30,7 @@
 		3EE820CF197556E500A6A314 /* MDRadialProgressTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressTheme.m; sourceTree = "<group>"; };
 		3EE820D0197556E500A6A314 /* MDRadialProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDRadialProgressView.h; sourceTree = "<group>"; };
 		3EE820D1197556E500A6A314 /* MDRadialProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRadialProgressView.m; sourceTree = "<group>"; };
+		A914027119FE639E0094749E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A9A38A451700C5CA00684698 /* MDRadialProgress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MDRadialProgress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A38A481700C5CA00684698 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A9A38A4A1700C5CA00684698 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -51,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A914027219FE639E0094749E /* QuartzCore.framework in Frameworks */,
 				A9A38A491700C5CA00684698 /* UIKit.framework in Frameworks */,
 				A9A38A4B1700C5CA00684698 /* Foundation.framework in Frameworks */,
 				A9A38A4D1700C5CA00684698 /* CoreGraphics.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		A9A38A471700C5CA00684698 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A914027119FE639E0094749E /* QuartzCore.framework */,
 				A9A38A481700C5CA00684698 /* UIKit.framework */,
 				A9A38A4A1700C5CA00684698 /* Foundation.framework */,
 				A9A38A4C1700C5CA00684698 /* CoreGraphics.framework */,

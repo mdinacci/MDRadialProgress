@@ -1,3 +1,7 @@
+1.3.0
+
+Added indeterminate mode, courtesy of @oduwa.
+
 1.2.0
 
 Refactored label property. Bug fixing. All changes contributed by Github user jmnavarro.
