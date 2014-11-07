@@ -96,6 +96,11 @@
 	}
 }
 
+- (CGSize)intrinsicContentSize
+{
+    return self.frame.size;
+}
+
 - (void)dealloc
 {
 	for (NSString *observedKey in [self themePropertiesToObserve]) {
