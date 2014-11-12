@@ -1,3 +1,7 @@
+1.3.1
+
+Merged pull request from @foo4u that implements intrinsicContentSize in MDRadialProgressView.m
+
 1.3.0
 
 Added indeterminate mode, courtesy of @oduwa.
