@@ -21,6 +21,8 @@
 
 @property (assign, nonatomic) CGRect originalFrame;
 
+@property (strong, nonatomic) MDRadialProgressTheme *theme;
+
 @end
 
 
@@ -34,9 +36,7 @@
 		CGPoint center = CGPointMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height / 2);
 		self.center = center;
 
-		[self updatedFrame:frame];
-		[self updatedThickness:theme.thickness];
-		[self updatedFontAttributes:theme];
+		self.theme = theme;
 
 		// Customise appearance
 		self.textAlignment = UITextAlignmentCenter;
@@ -53,6 +53,23 @@
     }
 	
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (!CGRectEqualToRect(_originalFrame, self.frame)) {
+        self.theme = self.theme;
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)setTheme:(MDRadialProgressTheme *)theme {
+    _theme = theme;
+    
+    [self updatedFrame:self.frame];
+    [self updatedThickness:self.theme.thickness];
+    [self updatedFontAttributes:self.theme];
 }
 
 - (void)updatedFrame:(CGRect)newFrame {
