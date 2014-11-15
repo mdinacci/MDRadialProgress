@@ -101,6 +101,14 @@
     return self.frame.size;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.label.frame = self.bounds;
+    self.labelTemp.frame = self.label.frame;
+}
+
 - (void)dealloc
 {
 	for (NSString *observedKey in [self themePropertiesToObserve]) {
