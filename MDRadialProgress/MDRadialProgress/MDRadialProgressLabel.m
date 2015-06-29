@@ -104,6 +104,7 @@
 	} else if ([keyPath isEqualToString:keyFrame]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
 		[self updatedFrame:view.bounds];
+        [self updatedThickness:view.theme.thickness];
 		[self setNeedsLayout];
 	} else if ([[keyPath lowercaseString] rangeOfString:@"label"].location != NSNotFound || [keyPath isEqualToString:keyFont]) {
 		MDRadialProgressView *view = (MDRadialProgressView *)object;
