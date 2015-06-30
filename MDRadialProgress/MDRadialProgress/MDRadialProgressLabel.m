@@ -76,7 +76,9 @@
 	if (theme.dropLabelShadow) {
 		self.shadowColor = theme.labelShadowColor;
 		self.shadowOffset = theme.labelShadowOffset;
-	}
+    } else  {
+        self.shadowOffset = CGSizeZero;
+    }
 }
 
 - (void)drawRect:(CGRect)rect
