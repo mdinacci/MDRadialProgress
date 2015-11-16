@@ -27,7 +27,7 @@ It has the following features:
 Either use CocoaPods by adding the line below to your _Podfile_:
 
 ```
-pod MDRadialProgress
+pod 'MDRadialProgress'
 ```
 
 or copy `MDRadialProgress.{h|m}`, `MDRadialProgressLabel.{h|m}`, `MDRadialProgressTheme.{h|m}` into your project.
