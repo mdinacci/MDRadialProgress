@@ -225,14 +225,14 @@
     
 	// If there's no progress, just draw the incomplete arc.
 	if (self.progressCounter == 0 && self.theme.drawIncompleteArcIfNoProgress) {
-		[self drawArcInContext:context
-						center:center
-						radius:circleRadius
-					startAngle:0
-					  endAngle:M_PI * 2
-						 color:self.theme.incompletedColor.CGColor
-					 clockwise:cgClockwise];
-		return;
+        [self drawArcInContext:context
+                        center:center
+                        radius:circleRadius
+                    startAngle:(cgClockwise ? M_PI * 2 : 0)
+                      endAngle:(cgClockwise ? 0 : M_PI * 2)
+                         color:self.theme.incompletedColor.CGColor
+                     clockwise:cgClockwise];
+        return;
 	}
 	
 	if (! self.theme.sliceDividerHidden && self.theme.sliceDividerThickness > 0) {
