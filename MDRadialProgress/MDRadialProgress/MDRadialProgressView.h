@@ -49,4 +49,6 @@ static NSString *keyFont = @"theme.font";
 // The block that is used to update the label text when the progress changes.
 @property (nonatomic, copy) NSString *(^labelTextBlock)(MDRadialProgressView *progressView);
 
+// 控制是否显示显示百分号
+@property(nonatomic,assign) BOOL isShowPercentMark;
 @end
