@@ -44,7 +44,7 @@ can create a theme with the appearance you like and apply it to all views, inste
 each view singularly.
 
 ### Dependencies
-Remember to add the QuartzCore framework provided with XCode or simply import it with `#import <QuartzCore/QuartzCore.h>` when you want to use
+Remember to add the QuartzCore framework provided with Xcode or simply import it with `#import <QuartzCore/QuartzCore.h>` when you want to use
 the indeterminate mode feature of MDRadialProgress.
 
 ## Localization
