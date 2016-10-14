@@ -13,7 +13,7 @@ It has the following features:
 * Indeterminate mode
 * Fully accessible
 * Support iOS 6.0+
-* Original BSD and Commercial Non-Attribution licenses available (you can use it in commercial software).
+* BSD licensed.
 
 
 ![Screenshot](screenshot.png "Screenshot")
@@ -56,23 +56,7 @@ If you want to provide localized text messages translate these two labels in you
 "Progress changed to:"
 
 ## License
-From version 1.0, the software changed license from MIT to the original BSD.
-
-The original BSD allows you to use and redistribute the software in both Open Source
-and commercial applications, **but it requires attribution**. 
-Your software must contain, either in the software itself or on the product page and in
-any advertising material the sentence:
-
-```
-This product includes the MDRadialProgress software component developed by Marco Dinacci.
-```
-
-I'm aware that some people need a license agreement which does not require attribution. If you’re in that situation, you can easily purchase a non-attribution license from my [online license store](http://sites.fastspring.com/intransitione/product/mdradialprogresslicenses).
-
-If the original BSD license doesn't cut it for you please let me know by writing an e-mail at
-hello AT infinityrealm.com. I'll be happy to help.
-
-Note that all versions before 1.0 are still licensed under the MIT license.
+The License is now BSD (https://opensource.org/licenses/BSD-3-Clause).
 
 ## Contributors
 See the [Contributors page](https://github.com/mdinacci/MDRadialProgress/graphs/contributors) on github.
