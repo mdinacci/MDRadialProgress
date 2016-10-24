@@ -377,7 +377,11 @@
         text = self.labelTextBlock(self);
     } else {
         float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
+        if (self.isShowPercentMark == YES) {
+             text = [NSString stringWithFormat:@"%.0f%%", percentageCompleted];
+        }else if (self.isShowPercentMark == NO){
         text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
+        }
     }
 	
 	self.accessibilityValue = text;
