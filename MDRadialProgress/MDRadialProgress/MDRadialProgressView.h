@@ -48,5 +48,6 @@ static NSString *keyFont = @"theme.font";
 
 // The block that is used to update the label text when the progress changes.
 @property (nonatomic, copy) NSString *(^labelTextBlock)(MDRadialProgressView *progressView);
+@property (nonatomic, copy) NSAttributedString *(^labelAttTextBlock)(MDRadialProgressView *progressView);
 
 @end

@@ -369,24 +369,28 @@
 
 - (void)notifyProgressChange
 {
-	// Update the accessibilityValue and the progressSummaryView text.
-	
-    NSString *text;
-	
-    if (self.labelTextBlock) {
-        text = self.labelTextBlock(self);
-    } else {
-        float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
-        text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
+    // Update the accessibilityValue and the progressSummaryView text.
+    if (_labelAttTextBlock) {
+        NSAttributedString *attText = _labelAttTextBlock(self);
+        self.label.attributedText = attText;
     }
-	
-	self.accessibilityValue = text;
-	self.label.text = text;
-	
-	NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
-								  NSLocalizedString(@"Progress changed to:", nil),
-								  self.accessibilityValue];
-	UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
+    else {
+        NSString *text;
+        if (self.labelTextBlock) {
+            text = self.labelTextBlock(self);
+        } else {
+            float percentageCompleted = (100.0f / self.progressTotal) * self.progressCounter;
+            text = [NSString stringWithFormat:@"%.0f", percentageCompleted];
+        }
+
+        self.accessibilityValue = text;
+        self.label.text = text;
+    }
+
+    NSString *notificationText = [NSString stringWithFormat:@"%@ %@",
+                                  NSLocalizedString(@"Progress changed to:", nil),
+                                  self.accessibilityValue];
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, notificationText);
 }
 
 - (NSArray *)themePropertiesToObserve
