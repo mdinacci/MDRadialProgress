@@ -1,3 +1,7 @@
+1.3.3
+
+The label shown in the view's center, support richtext.
+
 1.3.2
 
 Merged pull request to fix a small bug in the label shadow.
