@@ -50,4 +50,6 @@ static NSString *keyFont = @"theme.font";
 @property (nonatomic, copy) NSString *(^labelTextBlock)(MDRadialProgressView *progressView);
 @property (nonatomic, copy) NSAttributedString *(^labelAttTextBlock)(MDRadialProgressView *progressView);
 
+// 控制是否显示显示百分号
+@property(nonatomic,assign) BOOL isShowPercentMark;
 @end
